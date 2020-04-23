@@ -1,0 +1,31 @@
+.slider {
+  position: relative;
+  width: 800px;
+  height: 300px;
+  border: 1px solid black;
+  margin: auto;
+}
+
+.slider__image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: #fff;
+}
+
+.slider__image--active {
+  z-index: 9999;
+}
+
+.slider__button-previous {
+  position: absolute;
+  top: 100%;
+}
+
+.slider__button-next {
+  position: absolute;
+  top: 100%;
+  right: 0;
+}
