@@ -57,7 +57,7 @@ let mathLib = function() {
     }
 
     function compact(arr) {
-      for (let i = 0; i < arr.length - 1; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if (arr[i] === undefined || arr[i] === 0 || arr[i] === null || arr[i] === "") {
           arr.splice(i,1)
           i -= 1;
@@ -160,3 +160,5 @@ let mathLib = function() {
       average: average
     }
 }()
+
+module.exports = mathLib;

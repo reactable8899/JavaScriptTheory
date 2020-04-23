@@ -1,0 +1,26 @@
+{
+  "name": "theoryPracticeJs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reactable8899/JavaScriptTheory.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reactable8899/JavaScriptTheory/issues"
+  },
+  "homepage": "https://github.com/reactable8899/JavaScriptTheory#readme"
+}
