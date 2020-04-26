@@ -1,14 +1,23 @@
-let button = document.getElementById('button');
+const todo = function() {
+  let button = document.getElementById('button');
+  let ul = document.getElementById('ul')
 
-button.addEventListener('click', function() {
+  function init() {
+    button.addEventListener('click', function() {
 
-  let input = document.getElementById('input').value;
-  let li = document.createElement('li');
+      let input = document.getElementById('input').value;
+      let li = document.createElement('li');
 
-    li.innerHTML = input;
-    ul.append(li);
-    ul.appendChild(li).classList.add = 'difference';
+        li.innerHTML = input;
+        ul.append(li);
+        ul.appendChild(li).classList.add('difference');
 
-    input = document.getElementById('input').value = '';
+        input = document.getElementById('input').value = '';
 
-})
+    })
+  }
+
+  return {
+    init: init
+  }
+}();

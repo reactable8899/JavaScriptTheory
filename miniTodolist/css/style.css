@@ -27,3 +27,6 @@
   font-size: 36px;
   color: red;
 }
+.deleteButton {
+  display: none;
+}
