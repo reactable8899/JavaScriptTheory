@@ -1,0 +1,29 @@
+.main__block {
+  position: relative;
+  top: 100px;
+  width: 700px;
+  height: 400px;
+  background-color: white;
+  margin: auto;
+  border: 1px solid #D2D2DC;
+}
+.main__block_show {
+  margin-top: 30px;
+  margin-left: 30px;
+}
+#input {
+  width: 500px;
+  padding: 10px;
+  border-radius: 3px;
+}
+#button {
+  width: 60px;
+  height: 35px;
+  margin-left: 15px;
+  background-color:#4DB7FE;
+  border-radius: 7px;
+}
+.difference {
+  font-size: 36px;
+  color: red;
+}
