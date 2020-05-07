@@ -1,0 +1,351 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Muli", sans-serif;
+}
+.block1 {
+  position: relative;
+}
+  .banner {
+    width: 100%;
+    height: 100%;
+  }
+  .header {
+    display: flex;
+  }
+
+  .header img {
+    position: absolute;
+    top: 35px;
+    left: 75px;
+  }
+  .menu {
+    position: absolute;
+    top: 30px;
+    left: 300px;
+  }
+  .menu ul {
+    display: flex;
+  }
+  .menu ul li {
+    display: inline;
+    margin-left: 50px;
+    font-size: 1.15em;
+  }
+  .menu ul li a {
+    font-family: "Muli", sans-serif;
+    text-decoration: none;
+    color: #fff;
+  }
+  .menu ul li a:hover {
+    color: #615CFD;
+  }
+  .sayhello {
+    position: absolute;
+    top: 35px;
+    right: 50px;
+    color: #fff;
+    font-size: 1.25em;
+  }
+  .sayhello a {
+    font-family: "Muli", sans-serif;
+    text-decoration: none;
+    color: #fff;
+    padding: 0 0 7px 0;
+    border-bottom: 3px solid #615CFD;
+  }
+  .block1-text {
+    position: absolute;
+    top: 250px;
+    left: 100px;
+  }
+  .block1-text p {
+    margin: 0;
+    font-size: 72px;
+    color: #fff;
+  }
+  .block1-btn {
+    position: absolute;
+    bottom: 60px;
+    left: 100px;
+  }
+  .block1-btn a {
+    font-size: 1.25em;
+    border: 1px solid #615CFD;
+    border-radius: 40px;
+    background-color: #615CFD;
+    text-decoration: none;
+    color: #fff;
+    padding: 12px 28px 12px 28px;
+  }
+  .block1-btn a:hover {
+    font-size: 1.25em;
+    background-color: inherit;
+    color: #615CFD;
+  }
+.main-content {
+  width: 1170px;
+  margin: 0 auto;
+}
+  .block2-text {
+    margin-top: 150px;
+    margin-bottom: 70px;
+  }
+  .block2-text h2 {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+    font-size: 40px;
+    text-align: center;
+    color: #1F1F1F;
+  }
+  .block2-text p {
+    color: #7A5CFD;
+    text-align: center;
+  }
+
+.block2-boxes {
+  display: flex;
+  margin-bottom: 140px;
+}
+  .block2-box {
+    margin-left: 30px;
+    border: 1px solid silver;
+    border-radius: 5px;
+    flex: 1;
+  }
+  .block2-box:first-child {
+    margin-left: 0;
+  }
+  .block2-box img {
+    margin-top: 40px;
+    margin-left: 160px;
+  }
+  .block2-box h2 {
+    text-align: center;
+    color: #1F1F1F;
+  }
+  .block2-box p {
+    text-align: center;
+    color: #767272;
+    margin: 0 20px;
+    margin-bottom: 0px;
+    line-height: 25px;
+  }
+  .block2-box:hover {
+    border: 2px solid #615CFD;
+  }
+  .block2-box p:last-child {
+    margin-bottom: 50px;
+  }
+
+.block3 {
+
+}
+.block3 img {
+  float: left;
+  width: 50%;
+  height: 600px;
+}
+  .block3-content {
+    float: right;
+    width: 50%;
+    height: 600px;;
+    background-color: #1F1F1F;
+  }
+  .clear {
+    clear: both;
+  }
+  .block3-content-text {
+    color: #C9C6BE;
+    text-align: left;
+    margin: 160px 110px;
+    font-family: "Roboto", sans-serif;
+    margin-bottom: 40px;
+  }
+  .block3-content-text h1 {
+    font-size: 36px;
+  }
+  .block3-content-text p {
+    line-height: 35px;
+  }
+  .block3-btn {
+    margin-top: 50px;
+  }
+  .block3-btn a {
+    font-size: 1.25em;
+    border: 1px solid #615CFD;
+    border-radius: 40px;
+    background-color: #615CFD;
+    text-decoration: none;
+    color: #fff;
+    padding: 12px 28px 12px 28px;
+  }
+  .block3-btn a:hover {
+    font-size: 1.25em;
+    background-color: inherit;
+    color: #615CFD;
+  }
+
+.block4-text {
+  font-family: "Roboto", sans-serif;
+  margin-top: 150px;
+  text-align: center;
+  margin-bottom: 80px;
+}
+  .block4-text p {
+    color: #727272;
+  }
+  .block4-gallary {
+    display: flex;
+    margin-bottom: 30px;
+  }
+  .gallary-pic {
+    flex: 2;
+  }
+  .gallary-pic1 {
+    flex: 1;
+  }
+  .block4-gallary-second {
+    display: flex;
+    margin-bottom: 150px;
+  }
+.block5 {
+  margin-bottom: 120px;
+}
+.block5 img {
+  border-radius: 30px;
+float:right;
+width: 50%;
+height: 600px;
+}
+  .block5-main {
+    margin-top: 200px;
+  }
+  .block5-main p {
+    color: #74727D;
+  }
+  .block5-main h1,h3 {
+    margin-bottom: 40px;
+  }
+.block6 {
+  margin-bottom: 120px;
+}
+  .block6-text {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .block6-text p {
+    color: #74727D;
+  }
+  .block6-workers {
+    display: flex;
+  }
+  .block6-workers-photo {
+    flex:1;
+  }
+  .block6-workers-photo p {
+    text-align: center;
+  }
+  .block6-workers-photo h2 {
+    text-align: center;
+  }
+  .block6-workers-photo p {
+    color: #74727D;
+  }
+
+.block7 {
+  margin-bottom: 140px;
+  position: relative;
+}
+  .block7 img {
+    width: 100%;
+    height: 100%;
+  }
+  .block7-text {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    margin: 0 auto;
+  }
+  .block7-text p {
+    color: #fff;
+    text-align: center;
+    line-height: 10px;
+    font-size: 24px;
+  }
+
+.block8 {
+  width: 750px;
+  margin: 0 auto;
+  margin-bottom: 120px;
+}
+  .block8-text {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .block8-text p {
+    color: #74727D;
+  }
+  .block8-input1 {
+    outline: none;
+    border: 1px solid silver;
+    width: 45%;
+    border-radius: 25px;
+    padding: 15px;
+    color: #74727D;
+  }
+  .block8-input2 {
+    outline: none;
+    float: right;
+    border: 1px solid silver;
+    width: 45%;
+    border-radius: 25px;
+    padding: 15px;
+    color: #74727D;
+  }
+  .block8-input-subject {
+    outline: none;
+    margin-top: 30px;
+    width: 718px;
+    border: 1px solid silver;
+    border-radius: 25px;
+    padding: 15px;
+    margin-bottom: 30px;
+    color: #74727D;
+  }
+  .block8-textarea {
+    outline: none;
+    color: #74727D;
+    width: 718px;
+    border-radius: 40px;
+    height: 130px;
+    padding: 15px;
+    margin-bottom: 30px;
+  }
+  .block8-button {
+    outline: none;
+    margin-top: 30px;
+    width: 750px;
+    border: 1px solid silver;
+    border-radius: 25px;
+    padding: 15px;
+    color: #fff;
+    background-color: #615CFD;
+  }
+  .block8-button:hover {
+    margin-top: 30px;
+    width: 750px;
+    border: 1px solid silver;
+    border-radius: 25px;
+    padding: 15px;
+    background-color: #fff;
+    color: #615CFD;
+    border: 1px solid #615CFD;
+    cursor: pointer;
+  }
+.footer {
+  background-color: #1F1F1F;
+  text-align: center;
+  padding: 50px;
+  color: #74727D;
+}
