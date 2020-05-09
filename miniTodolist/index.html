@@ -6,23 +6,39 @@
     <title>Todolist</title>
   </head>
   <body>
-    <div class="main__block">
-        <div class="main__block_show">
-          <p>Todo List</p>
-          <input type="text" name="" maxlength="50" placeholder="what do you need to do today?" id="input">
+    <div id="todolist" class="todo-container">
+      <div class="todo-container__row todo-list">
+        <h2 class="todo-list__header">TodoList</h2>
+      </div>
 
-          <button type="button" name="Button" id="button">ADD</button>
+      <div class="todo-container__divider"></div>
 
-          <div id="main__block-list">
-            <ul id="ul"></ul>
-            <input type="checkbox" name="" value="" class="checkbox">
-          </div>
+      <!-- Input and button -->
+      <div class="todo-container__row todo-list">
+        <input class="todo-list__input" type="text" placeholder="enter task">
+        <button class="todo-list__button">Add task</button>
+      </div>
+
+      <div class="todo-container__divider"></div>
+
+      <!-- Task list -->
+      <div class="todo-container__row todo-list">
+        <div class="todo-list__content">
+          <!-- Task1 -->
+          <!-- <div class="todo-list__task">
+            <input class="todo-list__task-checkbox" type="checkbox">
+            <div class="todo-list__task-label">Решить задачи из задачника</div>
+            <button class="todo-list__task-remove">Удалить</div>
+          </div> -->
         </div>
+      </div>
     </div>
 
-  <script src="index.js"></script>
-  <script>
-    todo.init();
-  </script>
+    <script src="js/index.js"></script>
+    <script>
+      todo.start({
+        containerId: 'todolist'
+      })
+    </script>
   </body>
 </html>

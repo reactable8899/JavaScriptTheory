@@ -1,29 +1,64 @@
-.main__block {
-  position: relative;
-  top: 100px;
+.todo-container {
   width: 700px;
-  height: 400px;
-  background-color: white;
+  border: 1px solid #d4d3d3;
   margin: auto;
-  border: 1px solid #D2D2DC;
+  padding: 0 25px 25px 25px;
+  box-sizing: border-box;
 }
-.main__block_show {
-  margin-top: 30px;
-  margin-left: 30px;
+
+.todo-container__row {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-#input {
-  width: 500px;
+
+.todo-container__divider {
+  height: 2px;
+  background: #eee;
+}
+
+.todo-list {
+  display: flex;
+}
+
+.todo-list__header {
+  padding-bottom: 12px;
+}
+
+.todo-list__input {
+  flex-grow: 5;
   padding: 10px;
-  border-radius: 3px;
+  outline: none;
 }
-#button {
-  width: 60px;
-  height: 35px;
-  margin-left: 15px;
-  background-color:#4DB7FE;
-  border-radius: 7px;
+
+.todo-list__button {
+  flex-grow: 1;
+  margin-left: 10px;
 }
-.difference {
-  font-size: 36px;
-  color: red;
+
+.todo-list__content {
+  flex-grow: 1;
+}
+
+.todo-list__task {
+  position: relative;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.todo-list__task-checkbox {
+  margin-right: 15px;
+}
+
+.todo-list__task-label {
+
+}
+
+.todo-list__task-label--through {
+  text-decoration: line-through;
+}
+
+.todo-list__task-remove {
+  position: absolute;
+  right: 0;
 }
