@@ -3,28 +3,25 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/style.css">
-    <title>Todolist</title>
+    <title>Comments</title>
   </head>
   <body>
     <div class="main__block">
         <div class="main__block_show">
-          <p>Todo List</p>
-          <input type="text" name="" maxlength="50" placeholder="what do you need to do today?" id="input">
-
-          <button type="button" name="Button" id="button">ADD</button>
+          <p>Comments</p>
+          <input type="text" name="" value="" id="input">
+          <button type="button" name="Button" id="button">Добавить</button>
 
           <div id="main__block-list">
             <ul id="ul"></ul>
+
           </div>
         </div>
     </div>
-    
-  <script src="main.js"></script>
-  <script src="dom.js"></script>
 
+  <script src="main.js"></script>
   <script>
-    todo.setDomModule(dom);
-    todo.init();
+    post.addComment();
   </script>
   </body>
 </html>
