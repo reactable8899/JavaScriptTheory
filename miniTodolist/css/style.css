@@ -1,9 +1,28 @@
+<<<<<<< HEAD
 .main__block {
   width: 700px;
   background-color: white;
+=======
+.todo-container {
+  width: 700px;
+  border: 1px solid #d4d3d3;
+>>>>>>> 3930f0c01d160cc6208985ad6ed1b7e0efedc8f0
   margin: auto;
-  border: 1px solid #D2D2DC;
+  padding: 0 25px 25px 25px;
+  box-sizing: border-box;
 }
+
+.todo-container__row {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.todo-container__divider {
+  height: 2px;
+  background: #eee;
+}
+<<<<<<< HEAD
 .main__block_show {
   width: 600px;
   margin: 0 auto;
@@ -25,6 +44,53 @@
 .difference {
   font-size: 36px;
   color: red;
+=======
+
+.todo-list {
+  display: flex;
+}
+
+.todo-list__header {
+  padding-bottom: 12px;
+}
+
+.todo-list__input {
+  flex-grow: 5;
+  padding: 10px;
+  outline: none;
+}
+
+.todo-list__button {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.todo-list__content {
+  flex-grow: 1;
+}
+
+.todo-list__task {
+  position: relative;
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.todo-list__task-checkbox {
+  margin-right: 15px;
+}
+
+.todo-list__task-label {
+
+}
+
+.todo-list__task-label--through {
+  text-decoration: line-through;
+}
+
+.todo-list__task-remove {
+  position: absolute;
+  right: 0;
+>>>>>>> 3930f0c01d160cc6208985ad6ed1b7e0efedc8f0
 }
 .list__task {
   margin-top: 20px;
