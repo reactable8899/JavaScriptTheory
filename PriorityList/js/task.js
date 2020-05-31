@@ -8,6 +8,7 @@ const Task = function(name, priority) {
   // ссылка на родительский this
   const self = this;
 
+
   const li = document.createElement('li');
   li.classList.add('liClass')
 
@@ -28,14 +29,13 @@ const Task = function(name, priority) {
 
   likeButton.addEventListener('click', function(event) {
     self.priority++;
-    self.changePriority(self.priority);
+    self.changePriority(self.priority,this.list);
   }, false);
 
   dislikeButton.addEventListener('click', function(event) {
     self.priority--;
-    self.changePriority(self.priority);
+    self.changePriority(self.priority,self.list);
   }, false);
-
   deleteButton.addEventListener('click', function(event) {
     const li = event.target.parentNode;
 
@@ -52,9 +52,10 @@ const Task = function(name, priority) {
 };
 
 // changes priority
-Task.prototype.changePriority = function(priority) {
+Task.prototype.changePriority = function(priority,list) {
   this.dom.span.textContent = this.name + ': priority - ' + priority;
-  App.prototype.sort();
+
+  App.prototype.sort(list);
 };
 
 // Returns element

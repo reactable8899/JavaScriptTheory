@@ -2,7 +2,6 @@ const App = function(config) {
   this.config = config;
   this.list = [];
 
-
   this.ui = {
     ul: null,
     textInput: null,
@@ -16,7 +15,7 @@ const App = function(config) {
 // Prepares module
 App.prototype.prepare = function() {
   this.ui.ul = this.drawUl();
-  
+
   this.ui.textInput = this.drawInput('text');
   this.ui.textInput.classList.add('textInput');
 
@@ -31,6 +30,7 @@ App.prototype.prepare = function() {
   this.holder.append(this.ui.priorityInput);
   this.holder.append(this.ui.addButton);
   this.holder.appendChild(this.ui.ul);
+
 };
 
 // Draws UL
@@ -67,7 +67,8 @@ App.prototype.drawAddButton = function() {
     self.ui.ul.appendChild(task.getElement());
 
     self.list.push(task);
-    console.log(self.list)
+
+    App.prototype.sort(self.list,self.ui.ul);
 
     // чистим поля
     self.ui.textInput.value = '';
@@ -85,18 +86,16 @@ App.prototype.addTask = function(text, priority) {
 
   return task;
 };
-
 // Sort
-App.prototype.sort = function() {
+App.prototype.sort = function(list,ul) {
+
   for (let i = 0; i < list.length; i++) {
-    for (let j = 0; j < self.list.length; j++) {
-      if (self.list[i].priority < self.list[j].priority) {
-        let sp1 = i;
-        let sp2 = j;
-        let temp = self.list[j];
-        self.list[j] = self.list[i];
-        this.ui[i] = temp;
-        ul.insertBefore(this.ui[sp2], this.ui[sp1])
+    for (let j = 0; j < list.length; j++) {
+      if (list[i].priority < list[j].priority) {
+        let temp = list[j];
+        list[j] = list[i];
+        list[i] = temp;
+        ul.insertBefore(list[j].getElement(), list[i].getElement())
       }
     }
   }
