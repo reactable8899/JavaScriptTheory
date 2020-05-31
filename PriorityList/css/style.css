@@ -1,0 +1,67 @@
+.main {
+  margin: auto;
+  width: 700px;
+  height: 400px;
+  border: 1px solid silver;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.main__block h2{
+  text-align: center;
+}
+.main__block {
+  width: 700px;
+  height: 120px;
+  border: 1px solid #D2D2DC;
+  background-color: #F44336;
+}
+.main__block_show {
+  width: 600px;
+  margin: 0 auto;
+}
+.textInput {
+  outline: none;
+  font-size: 18px;
+  width: 370px;
+  height: 10px;
+  padding: 15px;
+  border: none;
+  border-radius: 25px;
+  margin-right: 5px;
+  border: none;
+}
+.priorityInput {
+  outline: none;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 25px;
+  width: 50px;
+  height: 25px;
+  margin-right: 5px;
+}
+.ButtonClass {
+  outline: none;
+  border: none;
+  border-color: silver;
+  border-radius: 25px;
+  width: 135px;
+  height: 40px;
+}
+.ButtonClass:hover {
+  cursor: pointer;
+}
+.liClass {
+  padding: 10px;
+  margin-top: 15px;
+  background-color: silver;
+  font-size: 22px;
+}
+.priorityButtons {
+  height: 30px;
+  width: 30px;
+  margin-left: 5px;
+}
+.deleteButton {
+  margin-top: 5px;
+  float: right;
+}
