@@ -6,28 +6,23 @@
     <title>Todolist</title>
   </head>
   <body>
-    <div id="todolist" class="todo-container">
-      <div class="todo-container__row todo-list">
-        <h2 class="todo-list__header">TodoList</h2>
-      </div>
-
-      <div class="todo-container__divider"></div>
-
-          <div id="main__block-list">
-            <ul id="ul"></ul>
+    <div class="main__block">
+      <div class="main__block_add">
+          <button class="addButton">+</button>
+          <div class="addList">
+            <input id="input" type="text" name="" value="">
+            <select class="priority" name="">
+              <option>Higth</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+            <button id="button" type="button" name="button">Add Task</button>
           </div>
-
-      <div class="todo-container__row todo-list">
-        <input class="todo-list__input" type="text" placeholder="enter task">
-        <button class="todo-list__button">Add task</button>
       </div>
-
-      <div class="todo-container__divider"></div>
-
-      <!-- Task list -->
-      <div class="todo-container__row todo-list">
-        <div class="todo-list__content">
-        </div>
+      <h1>TODAY</h1>
+      <span class="taskCount">Tasks : </span>
+      <div class="taskList">
+        <ul id="ulClass"></ul>
       </div>
     </div>
 

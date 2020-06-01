@@ -1,4 +1,5 @@
 const Task = function(name, priority) {
+
   this.name = name;
   this.priority = priority;
 
@@ -8,9 +9,9 @@ const Task = function(name, priority) {
   // ссылка на родительский this
   const self = this;
 
-
   const li = document.createElement('li');
-  li.classList.add('liClass')
+  li.classList.add('liClass');
+
 
   const span = document.createElement('span');
   span.textContent = this.name + ': priority - ' + this.priority;
@@ -23,8 +24,8 @@ const Task = function(name, priority) {
   dislikeButton.textContent = ' - ';
   dislikeButton.classList.add('priorityButtons')
 
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = ' x ';
+  const deleteButton = document.createElement('img');
+  deleteButton.src = './img/icondel.png';
   deleteButton.classList.add('deleteButton')
 
   likeButton.addEventListener('click', function(event) {
