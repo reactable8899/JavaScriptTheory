@@ -8,7 +8,9 @@ body {
   height: 600px;
   background-color: #EDEEEF;
 }
-.main__block h1 {
+.today {
+  font-size: 32px;
+  clear: both;
   font-family: sans-serif;
   color: #363636;
   margin: 0;
@@ -84,6 +86,7 @@ margin-bottom: 50px;
   margin: 0 auto;
 }
 .taskCount {
+  margin-top: 15px;
   font-size: 18px;
   display: none;
   float: right;
