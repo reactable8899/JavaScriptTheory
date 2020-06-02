@@ -67,7 +67,6 @@ App.prototype.drawAddButton = function() {
     const task = self.addTask(text, priority);
 
     self.ui.ul.appendChild(task.getElement());
-
     self.list.push(task);
 
     App.prototype.sort(self.list,self.ui.ul);

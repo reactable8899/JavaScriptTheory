@@ -44,7 +44,6 @@ const todo = function() {
         listshow--;
       }
     })
-
   }
   function taskCountInc() {
     taskCount++;

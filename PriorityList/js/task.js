@@ -6,6 +6,7 @@ const Task = function(name, priority) {
   this.dom = {
     li: null
   };
+
   // ссылка на родительский this
   const self = this;
 

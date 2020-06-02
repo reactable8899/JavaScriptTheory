@@ -8,16 +8,21 @@ body {
   height: 600px;
   background-color: #EDEEEF;
 }
+.main__block_show {
+  display: none;
+  width: 730px;
+  margin: 0 auto;
+}
 .today {
+  margin-top: 50px;
   font-size: 32px;
   clear: both;
   font-family: sans-serif;
   color: #363636;
-  margin: 0;
-  padding: 0;
   margin-left: 150px;
 }
 .addButton {
+  margin-top: 30px;
   outline: none;
   float: left;
   margin-left: 30px;
@@ -33,27 +38,26 @@ body {
 }
 
 .addList {
-  display: none;
+  display: block;
   width: 730px;
   margin: 0 auto;
 }
-.main__block_add {
-padding-top: 30px;
-margin-bottom: 50px;
-}
-#input {
+
+.input {
   border: none;
   width: 450px;
   padding: 10px;
   border-radius: 3px;
 }
 .priority {
+  margin-left: 5px;
   font-size: 14px;
   width: 100px;
   padding: 8px;
   border: none;
 }
-#button {
+.button {
+  margin-top: 30px;
   cursor: pointer;
   font-size: 16px;
   color: white;
@@ -65,7 +69,7 @@ margin-bottom: 50px;
   border-radius: 7px;
   outline: none;
 }
-#ulClass {
+.ulClass {
   margin: 0;
   padding: 0;
 }
@@ -93,7 +97,7 @@ margin-bottom: 50px;
   font-size: 18px;
   display: none;
   float: right;
-  margin-right: 130px;
+  margin-right: 150px;
 }
 .priorityClassHigth {
   margin-right: 30px;
