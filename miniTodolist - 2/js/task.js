@@ -1,8 +1,8 @@
-const Task = function(name, priority,tasksCount) {
+const Task = function(name, priority,app) {
 
   this.name = name;
   this.priority = priority;
-  this.tasksCount = tasksCount;
+  this.app = app;
 
   this.dom = {
     div: null
@@ -20,24 +20,40 @@ const Task = function(name, priority,tasksCount) {
   spanText.textContent = name;
 
   const buttonDelete = document.createElement('button');
-  buttonDelete.textContent = 'удалить';
+  buttonDelete.textContent = '...';
   buttonDelete.classList.add('list__button');
 
+  const deleteSpan = document.createElement('button');
+  deleteSpan.classList.add('deleteSpan');
+  deleteSpan.textContent = 'Удалить';
+
   buttonDelete.addEventListener('click', function(event) {
-    const div = event.target.parentNode;
-    tasksCount--;
-    div.remove();
+    let n = 0;
+    if (n === 0) {
+      div.appendChild(deleteSpan);
+      deleteSpan.classList.add('changeDisplayBlock');
+      n++;
+    } else {
+      div.appendChild(deleteSpan);
+      deleteSpan.classList.add('changeDisplayBlock');
+      n--;
+    }
+
   });
+
+  deleteSpan.addEventListener('click', function() {
+    const div = event.target.parentNode;
+
+    app.tasksCountDec();
+    div.remove();
+  })
 
   div.appendChild(span);
   div.appendChild(spanText);
   div.appendChild(buttonDelete);
 
   this.dom.div = div;
-};
 
-Task.prototype.tasksCount = function() {
-  return tasksCount;
 };
 
 Task.prototype.getElement = function() {

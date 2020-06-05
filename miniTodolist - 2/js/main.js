@@ -12,21 +12,9 @@ const App = function(config) {
   };
 
   this.prepare();
+  this.showAdd();
+
 };
-let show = 0;
-addButton = document.querySelector('.addButton');
-const addList = document.querySelector('.main__block_show');
-
-addButton.addEventListener('click', function() {
-
-  if (show === 0) {
-    addList.style.display = 'block';
-    show++;
-  } else {
-    addList.style.display = 'none';
-    show--;
-  }
-});
 
 App.prototype.prepare = function() {
 
@@ -74,6 +62,24 @@ App.prototype.prepare = function() {
 
 };
 
+App.prototype.showAdd = function() {
+
+  let show = 0;
+  addButton = document.querySelector('.addButton');
+  const addList = document.querySelector('.main__block_show');
+
+  addButton.addEventListener('click', function() {
+
+    if (show === 0) {
+      addList.style.display = 'block';
+      show++;
+    } else {
+      addList.style.display = 'none';
+      show--;
+    }
+  });
+};
+
 App.prototype.drawSpan = function() {
    return document.createElement('span');
 };
@@ -114,17 +120,14 @@ App.prototype.drawAddButton = function() {
     }
 
     self.list.taskCount.style.display = 'block';
-    self.list.counter++;
-    self.list.taskCount.textContent = `Tasks: ${self.list.counter}`;
 
     const text = self.list.textInput.value;
     const priority = document.querySelector('.priority').value;
-
-    const task = self.addTask(text, priority);
+    self.tasksCountInc();
+    const task = self.addTask(text, priority,self);
 
     self.list.taskList.appendChild(task.getElement());
     self.spisok.push(task);
-
 
     self.list.textInput.value = '';
     self.list.textInput.focus();
@@ -133,9 +136,23 @@ App.prototype.drawAddButton = function() {
   return button;
 };
 
-App.prototype.addTask = function(text, priority) {
+App.prototype.addTask = function(text, priority,app) {
 
-  const task = new Task(text, priority);
+  const task = new Task(text, priority,app);
 
   return task;
+};
+
+
+App.prototype.tasksCountInc = function() {
+
+  this.list.counter++;
+  this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
+};
+
+App.prototype.tasksCountDec = function() {
+
+  this.list.counter--;
+  this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
+
 };
