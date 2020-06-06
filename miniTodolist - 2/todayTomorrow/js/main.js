@@ -1,78 +1,81 @@
 const App = function() {
+  this.todayList = new TaskManager("Today List");
+  this.tomorrowList = new TaskManager("Tomorrow List");
+  this.may5 = new TaskManager("5 May");
+  this.may10 = new TaskManager("10 May");
+  this.may11 = new TaskManager("11 May");
 
-  this.todayList = [];
-  this.tomorrowList = [];
+  this.drawButton();
+};
 
-
-  this.drowButton();
-}
-
-App.prototype.prepare = function() {
-  this.div = drowDiv();
-
-}
-
-App.prototype.drowDiv = function() {
-  return document.createElement('div');
-}
-
-App.prototype.drowButton = function() {
+App.prototype.drawButton = function() {
   const button = document.querySelector('.ButtonAdd');
   this.ul = document.querySelector('.ulClass');
-  const todayButton = document.querySelector('[data-id="today"]');
-  const tomorrowButton = document.querySelector('[data-id="tomorrow"]');
+
+  let currentList = '';
 
   const self = this;
-  let clicked = 1;
+  const buttons = document.querySelectorAll('.manager');
+
+  for (let i = 0; i < buttons.length; i++) {
+    const button = buttons[i];
+
+    button.addEventListener('click', function(event) {
+      const clickedButton = event.target;
+      const id = clickedButton.dataset.id;
+
+      currentList = id;
+
+      self.ul.innerHTML = '';
+
+      if (id === 'today') {
+        self.fillByManagerList(self.todayList);
+      } else if (id === 'tomorrow') {
+        self.fillByManagerList(self.tomorrowList);
+      } else if (id === '5may') {
+        self.fillByManagerList(self.may5);
+      } else if (id === '10may') {
+        self.fillByManagerList(self.may10);
+      } else if (id === '11may') {
+        self.fillByManagerList(self.may11);
+      }
+
+    });
+  }
+
   button.addEventListener('click', function(event) {
 
     self.inputValue = document.querySelector('.input');
 
-    name = self.inputValue.value;
-    const task = self.createTask(name);
-    console.log(task)
-    if (clicked === 1) {
-      self.todayList.push(task)
-      self.AddToUl(task)
-    } else {
-      self.AddToUl(task)
-      self.tomorrowList.push(task)
+    const name = self.inputValue.value;
+
+    let task;
+
+    if (currentList === 'today') {
+      task = self.todayList.addTask(name);
+    } else if (currentList === 'tomorrow') {
+      task = self.tomorrowList.addTask(name);
+    } else if (currentList === '5may') {
+      task = self.may5.addTask(name);
+    } else if (currentList === '10may') {
+      task = self.may10.addTask(name);
+    } else if (currentList === '11may') {
+      task = self.may11.addTask(name);
     }
 
+    self.AddToUl(task.getElement());
     self.inputValue.value = '';
     self.inputValue.focus();
 
-  })
+  });
+};
 
-  todayButton.addEventListener('click', function() {
-     clicked = 1;
-    while (self.ul.firstChild) {
-      self.ul.firstChild.remove();
-    }
-    for ( let i = 0; i < self.todayList.length; i++) {
-      self.AddToUl(self.todayList[i])
-    }
+App.prototype.fillByManagerList = function(manager) {
+  for ( let i = 0; i < manager.list.length; i++) {
+    this.AddToUl(manager.list[i].getElement())
+  }
+};
 
-  })
-  tomorrowButton.addEventListener('click', function() {
-    clicked = 0;
-    while (self.ul.firstChild) {
-      self.ul.firstChild.remove();
-    }
-    for ( let i = 0; i < self.tomorrowList.length; i++) {
-      self.AddToUl(self.tomorrowList[i])
-    }
-  })
-
-}
-
-App.prototype.createTask = function(name) {
-  const li = document.createElement('li');
-  li.textContent = name;
-
-  return li
-}
-
-App.prototype.AddToUl = function(list) {
-  this.ul.append(list)
-}
+App.prototype.AddToUl = function(task) {
+  this.ul.append(task);
+};
