@@ -20,8 +20,15 @@ App.prototype.prepare = function() {
 
   const mainBlock = document.querySelector('.main__block');
 
+  this.list.todayButton = this.ButtonChange();
+  this.list.todayButton.textContent = 'Today';
+  this.list.todayButton.classList.add('todayButton');
+
+  this.list.tomorrowButton = this.ButtonChange();
+  this.list.tomorrowButton.textContent = 'Tomorrow';
+  this.list.tomorrowButton.classList.add('tomorrowButton');
+
   this.list.today = this.drawDiv();
-  this.list.today.textContent = 'TODAY';
   this.list.today.classList.add('today');
 
   this.list.taskCount = this.drawSpan();
@@ -33,7 +40,6 @@ App.prototype.prepare = function() {
 
   this.list.textInput = this.drawInput();
   this.list.textInput.classList.add('input');
-    this.list.textInput.placeholder = 'Add Task';
 
   this.list.select = this.drawSelect();
   this.list.select.classList.add('priority');
@@ -42,7 +48,7 @@ App.prototype.prepare = function() {
   this.list.optionMedium = this.drawOption("Medium");
   this.list.optionLow = this.drawOption("Low");
 
-  this.list.buttonAdd = this.drawAddButton();
+  this.list.buttonAdd = this.drawButton();
 
   this.list.select.append(this.list.optionHigth);
   this.list.select.append(this.list.optionMedium);
@@ -57,11 +63,19 @@ App.prototype.prepare = function() {
   this.list.ul.classList.add('ulClass');
 
   this.list.taskList.append(this.list.ul);
+
   this.list.today.append(this.list.taskCount);
-  mainBlock.append(this.list.today);
-  mainBlock.append(this.list.taskList);
+  this.list.today.append(this.list.todayButton);
+  this.list.today.append(this.list.tomorrowButton);
+
+  this.holder.append(this.list.today);
+  this.holder.append(this.list.taskList);
 
 };
+
+App.prototype.ButtonChange = function() {
+  return document.createElement('button')
+}
 
 App.prototype.showAdd = function() {
 
@@ -107,7 +121,7 @@ App.prototype.drawUl = function() {
    return document.createElement('ul');
 };
 
-App.prototype.drawAddButton = function() {
+App.prototype.drawButton = function() {
   const button = document.createElement('button');
   button.classList.add('button');
   button.textContent = 'Add Task';

@@ -7,7 +7,7 @@ const Task = function(name, priority,app) {
   this.dom = {
     div: null
   };
-  let n = 0;
+
   const self = this;
 
   const div = document.createElement('div');
@@ -28,15 +28,14 @@ const Task = function(name, priority,app) {
   deleteSpan.textContent = 'Удалить';
 
   buttonDelete.addEventListener('click', function(event) {
-
+    let n = 0;
     if (n === 0) {
       div.appendChild(deleteSpan);
       deleteSpan.classList.add('changeDisplayBlock');
-      deleteSpan.classList.remove('changeDisplayNone');
       n++;
     } else {
-      deleteSpan.classList.add('changeDisplayNone');
-      deleteSpan.classList.remove('changeDisplayBlock');
+      div.appendChild(deleteSpan);
+      deleteSpan.classList.add('changeDisplayBlock');
       n--;
     }
 
