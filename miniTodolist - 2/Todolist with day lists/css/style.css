@@ -12,6 +12,7 @@ body {
   display: none;
   width: 730px;
   margin: 0 auto;
+  margin-bottom: 40px;
 }
 
 .addButton {
@@ -86,6 +87,7 @@ body {
   margin-right: 20px;
 }
 .taskList {
+  margin-top: 40px;
   clear: both;
   overflow-y: auto;
   background-color: white;
@@ -141,4 +143,22 @@ body {
 }
 .changeDisplayNone {
   display: none;
+}
+.lists {
+  margin-left: 100px;
+}
+.list {
+  border-radius: 0 15px 0 0;
+  padding: 5px;
+  background-color: white;
+  border: none;
+  font-size: 18px;
+  width: 100px;
+  cursor: pointer;
+  border-bottom: 1px solid silver;
+  color: #757575;
+}
+.list:hover {
+  background-color: #55BDE3;
+  color: white;
 }

@@ -1,15 +1,8 @@
 const App = function() {
-  // Middle
-  // this.todayList = new TaskManager("Today List");
-  // this.tomorrowList = new TaskManager("Tomorrow List");
-  // this.may5 = new TaskManager("5 May");
-  // this.may10 = new TaskManager("10 May");
-  // this.may11 = new TaskManager("11 May");
 
-  // Advanced
   this.managers = [];
   this.list = {
-
+    counter:0
   }
   this.prepare();
   this.drawButton();
@@ -28,8 +21,8 @@ App.prototype.showAdd = function() {
 
     if (show === 0) {
       addList.style.display = 'block';
-      todaybutton.style.display = 'block';
-      tomorrowbutton.style.display = 'block';
+      todaybutton.style.display = 'inline';
+      tomorrowbutton.style.display = 'inline';
       show++;
     } else {
       addList.style.display = 'none';
@@ -42,6 +35,23 @@ App.prototype.showAdd = function() {
 App.prototype.prepare = function() {
   const mainBlock = document.querySelector('.main__block');
   const mainMenu = document.querySelector('.main__block_show');
+
+  this.list.lists = this.drawDiv();
+  this.list.lists.classList.add('lists');
+
+  this.list.lists.span = this.drawSpan();
+
+  this.list.listButtonToday = this.drowListButton('today');
+  this.list.listButtonToday.textContent = 'today';
+  this.list.listButtonToday.classList.add('manager');
+  this.list.listButtonToday.classList.add('list');
+  this.list.listButtonToday.dataset.id = 'today';
+
+  this.list.listButtonTomorrow = this.drowListButton('tomorrow');
+  this.list.listButtonTomorrow.textContent = 'tomorrow';
+  this.list.listButtonTomorrow.classList.add('manager');
+  this.list.listButtonTomorrow.classList.add('list');
+  this.list.listButtonTomorrow.dataset.id = 'tomorrow';
 
   this.list.input = this.drawInput();
   this.list.input.classList.add('input');
@@ -60,6 +70,10 @@ App.prototype.prepare = function() {
   this.list.ul = this.drawUl();
   this.list.ul.classList.add('ulClass');
 
+  this.list.taskCount = this.drawSpan();
+  this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
+  this.list.taskCount.classList.add('taskCount');
+
   this.list.select.append(this.list.optionHigth);
   this.list.select.append(this.list.optionMedium);
   this.list.select.append(this.list.optionLow);
@@ -67,7 +81,14 @@ App.prototype.prepare = function() {
   this.list.taskList.append(this.list.ul);
   mainMenu.prepend(this.list.select);
   mainMenu.prepend(this.list.input);
+
+  this.list.lists.append(this.list.listButtonToday);
+  this.list.lists.append(this.list.listButtonTomorrow);
+
+  mainBlock.append(this.list.lists);
   mainBlock.append(this.list.taskList);
+  mainBlock.append(this.list.taskCount);
+
 };
 
 App.prototype.drawSpan = function() {
@@ -95,7 +116,11 @@ App.prototype.drawOption = function(text) {
 App.prototype.drawUl = function() {
    return document.createElement('ul');
 };
+App.prototype.drowListButton = function(name) {
+  const listButton = document.createElement('button');
 
+  return listButton
+}
 App.prototype.drawButton = function() {
   const button = document.querySelector('.button');
   this.ul = document.querySelector('.ulClass');
@@ -135,13 +160,13 @@ App.prototype.drawButton = function() {
 
   button.addEventListener('click', function(event) {
     const priority = document.querySelector('.priority').value;
-
+    self.tasksCountInc();
+    self.list.taskCount.style.display = 'block';
     self.inputValue = document.querySelector('.input');
 
     const name = self.inputValue.value;
 
-    // Advanced
-    const task = currentManager.addTask(name,priority,App);
+    const task = currentManager.addTask(name,priority,self);
 
     self.AddToUl(task.getElement());
     self.inputValue.value = '';
@@ -158,4 +183,17 @@ App.prototype.fillByManagerList = function(manager) {
 
 App.prototype.AddToUl = function(task) {
   this.ul.append(task);
+};
+
+App.prototype.tasksCountInc = function() {
+
+  this.list.counter++;
+  this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
+};
+
+App.prototype.tasksCountDec = function() {
+
+  this.list.counter--;
+  this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
+
 };
