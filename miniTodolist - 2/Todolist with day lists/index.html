@@ -7,23 +7,26 @@
   </head>
   <body>
     <div class="main__block">
+
+      <div class="main__menu">
+          <button type="button" name="button" class="addButton">+</button>
+          <div class="main__block_show">
+              <button type="button" name="button" class="button">Add Task</button>
+          </div>
+      </div>
+
       <button type="button" name="button" class="manager" data-id="today">today</button>
       <button type="button" name="button" class="manager" data-id="tomorrow">tomorrow</button>
-      <button type="button" name="button" class="manager" data-id="5may">5 May</button>
-      <button type="button" name="button" class="manager" data-id="10may">10 May</button>
-      <button type="button" name="button" class="manager" data-id="11may">11 May</button>
-      <button type="button" name="button" class="manager" data-id="11december">31 December</button>
-      <input type="text" name="" value="" class="input">
-      <button type="button" name="button" class="ButtonAdd">Add</button>
-      <ul class="ulClass">
-      </ul>
     </div>
+
 
     <script src="./js/taskManager.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/task.js"></script>
   <script>
-  const app = new App();
+  const app = new App({
+    holder: "todo"
+  });
   </script>
   </body>
 </html>

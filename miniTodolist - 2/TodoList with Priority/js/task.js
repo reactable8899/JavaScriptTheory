@@ -7,7 +7,7 @@ const Task = function(name, priority,app) {
   this.dom = {
     div: null
   };
-
+  let n = 0;
   const self = this;
 
   const div = document.createElement('div');
@@ -28,14 +28,15 @@ const Task = function(name, priority,app) {
   deleteSpan.textContent = 'Удалить';
 
   buttonDelete.addEventListener('click', function(event) {
-    let n = 0;
+
     if (n === 0) {
       div.appendChild(deleteSpan);
       deleteSpan.classList.add('changeDisplayBlock');
+      deleteSpan.classList.remove('changeDisplayNone');
       n++;
     } else {
-      div.appendChild(deleteSpan);
-      deleteSpan.classList.add('changeDisplayBlock');
+      deleteSpan.classList.add('changeDisplayNone');
+      deleteSpan.classList.remove('changeDisplayBlock');
       n--;
     }
 
@@ -75,3 +76,17 @@ Task.prototype.getPriority = function(prioritys,span) {
     }
   }
 }
+
+// const Task = function(name, priority) {
+//   this.name = name;
+//   this.priority = priority;
+// };
+//
+// Task.prototype.getElement = function() {
+//   const li = document.createElement('li');
+//
+//   li.dataset.priority = this.priority;
+//   li.textContent = this.name;
+//
+//   return li;
+// };
