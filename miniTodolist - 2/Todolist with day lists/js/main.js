@@ -5,29 +5,25 @@ const App = function() {
     counter:0
   }
   this.prepare();
+  this.listAdd();
   this.drawButton();
   this.showAdd();
-
 };
 App.prototype.showAdd = function() {
 
   let show = 0;
   addButton = document.querySelector('.addButton');
   const addList = document.querySelector('.main__block_show');
-  const todaybutton = document.querySelector('[data-id="today"]');
-  const tomorrowbutton = document.querySelector('[data-id="tomorrow"]');
-
+  const buttonList = document.querySelector('.lists');
   addButton.addEventListener('click', function() {
 
     if (show === 0) {
       addList.style.display = 'block';
-      todaybutton.style.display = 'inline';
-      tomorrowbutton.style.display = 'inline';
+      buttonList.style.display = 'block';
       show++;
     } else {
       addList.style.display = 'none';
-      todaybutton.style.display = 'none';
-      tomorrowbutton.style.display = 'none';
+      buttonList.style.display = 'none';
       show--;
     }
   });
@@ -47,11 +43,9 @@ App.prototype.prepare = function() {
   this.list.listButtonToday.classList.add('list');
   this.list.listButtonToday.dataset.id = 'today';
 
-  this.list.listButtonTomorrow = this.drowListButton('tomorrow');
-  this.list.listButtonTomorrow.textContent = 'tomorrow';
-  this.list.listButtonTomorrow.classList.add('manager');
-  this.list.listButtonTomorrow.classList.add('list');
-  this.list.listButtonTomorrow.dataset.id = 'tomorrow';
+  this.list.listButtonAdd = this.drowListButton();
+  this.list.listButtonAdd.textContent = '+';
+  this.list.listButtonAdd.classList.add('listAdd');
 
   this.list.input = this.drawInput();
   this.list.input.classList.add('input');
@@ -83,13 +77,32 @@ App.prototype.prepare = function() {
   mainMenu.prepend(this.list.input);
 
   this.list.lists.append(this.list.listButtonToday);
-  this.list.lists.append(this.list.listButtonTomorrow);
-
+  this.list.lists.append(this.list.listButtonAdd);
   mainBlock.append(this.list.lists);
   mainBlock.append(this.list.taskList);
   mainBlock.append(this.list.taskCount);
 
 };
+App.prototype.listAdd = function() {
+  const self = this;
+  const listAdd = document.querySelector('.listAdd');
+
+  listAdd.addEventListener('click', function() {
+
+    const listName = prompt("Введите название листа");
+    const newList = document.createElement('button');
+    newList.textContent = listName;
+    newList.classList.add('manager','list');
+    newList.dataset.id = listName;
+    self.list.lists.append(newList);
+
+    const manager = new TaskManager(listName);
+    console.log(listName)
+    self.managers.push(manager);
+
+  })
+
+}
 
 App.prototype.drawSpan = function() {
    return document.createElement('span');
@@ -117,9 +130,7 @@ App.prototype.drawUl = function() {
    return document.createElement('ul');
 };
 App.prototype.drowListButton = function(name) {
-  const listButton = document.createElement('button');
-
-  return listButton
+  return listButton = document.createElement('button');
 }
 App.prototype.drawButton = function() {
   const button = document.querySelector('.button');
@@ -141,11 +152,11 @@ App.prototype.drawButton = function() {
 
       const clickedButton = event.target;
       const id = clickedButton.dataset.id;
-
+      console.log(id)
       self.ul.innerHTML = '';
 
-      // Advanced
       for (let i = 0; i < self.managers.length; i++) {
+        console.log(self.managers[i].name)
         if (self.managers[i].name === id) {
           currentList = id;
           currentManager = self.managers[i];
@@ -176,6 +187,7 @@ App.prototype.drawButton = function() {
 };
 
 App.prototype.fillByManagerList = function(manager) {
+
   for ( let i = 0; i < manager.list.length; i++) {
     this.AddToUl(manager.list[i].getElement())
   }

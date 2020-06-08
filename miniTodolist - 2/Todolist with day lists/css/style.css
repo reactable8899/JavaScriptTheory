@@ -30,9 +30,7 @@ body {
   border-radius: 50px;
   background-color: #486EE3;
 }
-.manager {
-  display: none;
-}
+
 .addList {
   display: block;
   width: 730px;
@@ -145,6 +143,7 @@ body {
   display: none;
 }
 .lists {
+  display: none;
   margin-left: 100px;
 }
 .list {

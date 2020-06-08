@@ -1,5 +1,5 @@
 const Task = function(name, priority,app) {
-  console.log(app)
+
   this.name = name;
   this.priority = priority;
   this.app = app;
