@@ -97,7 +97,6 @@ App.prototype.listAdd = function() {
     self.list.lists.append(newList);
 
     const manager = new TaskManager(listName);
-    console.log(listName)
     self.managers.push(manager);
 
   })
@@ -140,7 +139,7 @@ App.prototype.drawButton = function() {
   let currentManager;
 
   const self = this;
-  const buttons = document.querySelectorAll('.manager');
+  buttons = document.querySelectorAll('.manager');
 
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
@@ -152,11 +151,10 @@ App.prototype.drawButton = function() {
 
       const clickedButton = event.target;
       const id = clickedButton.dataset.id;
-      console.log(id)
+      //console.log(id)
       self.ul.innerHTML = '';
 
       for (let i = 0; i < self.managers.length; i++) {
-        console.log(self.managers[i].name)
         if (self.managers[i].name === id) {
           currentList = id;
           currentManager = self.managers[i];
