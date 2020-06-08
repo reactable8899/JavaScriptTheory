@@ -1,6 +1,7 @@
 const App = function() {
 
   this.managers = [];
+  this.currentManager = null;
   this.list = {
     counter:0
   }
@@ -38,7 +39,7 @@ App.prototype.prepare = function() {
   this.list.lists.span = this.drawSpan();
 
   this.list.listButtonToday = this.drowListButton('today');
-  this.list.listButtonToday.textContent = 'today';
+  this.list.listButtonToday.textContent = 'Сегодня';
   this.list.listButtonToday.classList.add('manager');
   this.list.listButtonToday.classList.add('list');
   this.list.listButtonToday.dataset.id = 'today';
@@ -95,10 +96,11 @@ App.prototype.listAdd = function() {
     newList.classList.add('manager','list');
     newList.dataset.id = listName;
     self.list.lists.append(newList);
+    self.list.lists.append(self.list.listButtonAdd);
 
     const manager = new TaskManager(listName);
     self.managers.push(manager);
-
+    self.bindButtonEvent(newList);
   })
 
 }
@@ -132,42 +134,21 @@ App.prototype.drowListButton = function(name) {
   return listButton = document.createElement('button');
 }
 App.prototype.drawButton = function() {
-  const button = document.querySelector('.button');
+  const addtaskButton = document.querySelector('.button');
   this.ul = document.querySelector('.ulClass');
 
-  let currentList;
-  let currentManager;
-
   const self = this;
-  buttons = document.querySelectorAll('.manager');
+  const buttons = document.querySelectorAll('.manager');
 
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
 
     const manager = new TaskManager(button.dataset.id);
     this.managers.push(manager);
-
-    button.addEventListener('click', function(event) {
-
-      const clickedButton = event.target;
-      const id = clickedButton.dataset.id;
-      //console.log(id)
-      self.ul.innerHTML = '';
-
-      for (let i = 0; i < self.managers.length; i++) {
-        if (self.managers[i].name === id) {
-          currentList = id;
-          currentManager = self.managers[i];
-        }
-      }
-
-      console.log('currentManager', currentManager);
-      self.fillByManagerList(currentManager);
-
-    });
+    this.bindButtonEvent(button);
   }
 
-  button.addEventListener('click', function(event) {
+  addtaskButton.addEventListener('click', function(event) {
     const priority = document.querySelector('.priority').value;
     self.tasksCountInc();
     self.list.taskCount.style.display = 'block';
@@ -175,12 +156,11 @@ App.prototype.drawButton = function() {
 
     const name = self.inputValue.value;
 
-    const task = currentManager.addTask(name,priority,self);
+    const task = self.currentManager.addTask(name,priority,self);
 
     self.AddToUl(task.getElement());
     self.inputValue.value = '';
     self.inputValue.focus();
-
   });
 };
 
@@ -207,3 +187,23 @@ App.prototype.tasksCountDec = function() {
   this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
 
 };
+App.prototype.bindButtonEvent = function(button) {
+  const self = this;
+  button.addEventListener('click', function(event) {
+
+    const clickedButton = event.target;
+    const id = clickedButton.dataset.id;
+    self.ul.innerHTML = '';
+
+    for (let i = 0; i < self.managers.length; i++) {
+      if (self.managers[i].name === id) {
+        self.currentList = id;
+        self.currentManager = self.managers[i];
+      }
+    }
+
+    console.log('currentManager', self.currentManager);
+    self.fillByManagerList(self.currentManager);
+
+  });
+}

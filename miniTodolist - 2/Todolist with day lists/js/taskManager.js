@@ -4,6 +4,7 @@ const TaskManager = function(name) {
 };
 
 TaskManager.prototype.addTask = function(name,priority,app) {
+
   const task = new Task(name,priority,app);
 
   this.list.push(task);
