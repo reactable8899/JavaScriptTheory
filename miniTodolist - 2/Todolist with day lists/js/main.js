@@ -1,6 +1,7 @@
 const App = function() {
 
   this.managers = [];
+  this.currentManager = null;
   this.list = {
     counter:0
   }
@@ -9,8 +10,8 @@ const App = function() {
   this.drawButton();
   this.showAdd();
 };
-App.prototype.showAdd = function() {
 
+App.prototype.showAdd = function() {
   let show = 0;
   addButton = document.querySelector('.addButton');
   const addList = document.querySelector('.main__block_show');
@@ -99,6 +100,8 @@ App.prototype.listAdd = function() {
     const manager = new TaskManager(listName);
     self.managers.push(manager);
 
+    self.bindButtonEvent(newList);
+
   })
 
 }
@@ -132,11 +135,8 @@ App.prototype.drowListButton = function(name) {
   return listButton = document.createElement('button');
 }
 App.prototype.drawButton = function() {
-  const button = document.querySelector('.button');
+  const addTaskButton = document.querySelector('.button');
   this.ul = document.querySelector('.ulClass');
-
-  let currentList;
-  let currentManager;
 
   const self = this;
   buttons = document.querySelectorAll('.manager');
@@ -146,6 +146,9 @@ App.prototype.drawButton = function() {
 
     const manager = new TaskManager(button.dataset.id);
     this.managers.push(manager);
+
+    this.bindButtonEvent(button);
+
 
     button.addEventListener('click', function(event) {
 
@@ -165,9 +168,10 @@ App.prototype.drawButton = function() {
       self.fillByManagerList(currentManager);
 
     });
+
   }
 
-  button.addEventListener('click', function(event) {
+  addTaskButton.addEventListener('click', function(event) {
     const priority = document.querySelector('.priority').value;
     self.tasksCountInc();
     self.list.taskCount.style.display = 'block';
@@ -175,7 +179,7 @@ App.prototype.drawButton = function() {
 
     const name = self.inputValue.value;
 
-    const task = currentManager.addTask(name,priority,self);
+    const task = self.currentManager.addTask(name,priority,self);
 
     self.AddToUl(task.getElement());
     self.inputValue.value = '';
@@ -202,8 +206,29 @@ App.prototype.tasksCountInc = function() {
 };
 
 App.prototype.tasksCountDec = function() {
-
   this.list.counter--;
   this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
-
 };
+
+// OLIM...
+App.prototype.bindButtonEvent = function(button) {
+  const self = this;
+  button.addEventListener('click', function(event) {
+
+    const clickedButton = event.target;
+    const id = clickedButton.dataset.id;
+    self.ul.innerHTML = '';
+
+    for (let i = 0; i < self.managers.length; i++) {
+      console.log(self.managers[i].name)
+      if (self.managers[i].name === id) {
+        self.currentList = id;
+        self.currentManager = self.managers[i];
+      }
+    }
+
+    console.log('currentManager', self.currentManager);
+    self.fillByManagerList(self.currentManager);
+
+  });
+}
