@@ -14,8 +14,6 @@ const App = function() {
 };
 
 App.prototype.showAddBlock = function() {
-
-App.prototype.showAdd = function() {
   let show = 0;
   const addBlockList = document.querySelector('.main__block_show');
   const buttonList = document.querySelector('.lists');
