@@ -15,6 +15,7 @@ const App = function() {
 
 App.prototype.showAddBlock = function() {
 
+App.prototype.showAdd = function() {
   let show = 0;
   const addBlockList = document.querySelector('.main__block_show');
   const buttonList = document.querySelector('.lists');
@@ -118,6 +119,8 @@ App.prototype.listAdd = function() {
     self.managers.push(manager);
     self.bindButtonEvent(newList);
 
+    self.bindButtonEvent(newList);
+
   })
 
 };
@@ -212,7 +215,6 @@ App.prototype.tasksCountDec = function(event) {
   }
   this.list.counter--;
   this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
-
 };
 
 App.prototype.bindButtonEvent = function(button) {
