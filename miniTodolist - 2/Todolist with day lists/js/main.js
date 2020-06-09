@@ -139,14 +139,36 @@ App.prototype.drawButton = function() {
   this.ul = document.querySelector('.ulClass');
 
   const self = this;
-  const buttons = document.querySelectorAll('.manager');
+  buttons = document.querySelectorAll('.manager');
 
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
 
     const manager = new TaskManager(button.dataset.id);
     this.managers.push(manager);
+
     this.bindButtonEvent(button);
+
+
+    button.addEventListener('click', function(event) {
+
+      const clickedButton = event.target;
+      const id = clickedButton.dataset.id;
+      //console.log(id)
+      self.ul.innerHTML = '';
+
+      for (let i = 0; i < self.managers.length; i++) {
+        if (self.managers[i].name === id) {
+          currentList = id;
+          currentManager = self.managers[i];
+        }
+      }
+
+      console.log('currentManager', currentManager);
+      self.fillByManagerList(currentManager);
+
+    });
+
   }
 
   addTaskButton.addEventListener('click', function(event) {
