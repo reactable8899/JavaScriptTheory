@@ -17,6 +17,7 @@ const Task = function(name, priority,app) {
   span.classList.add = Task.prototype.getPriority(priority,span);
 
   const spanText = document.createElement('span');
+  spanText.classList.add('listText');
   spanText.textContent = name;
 
   const buttonDelete = document.createElement('button');
@@ -45,7 +46,7 @@ const Task = function(name, priority,app) {
   deleteSpan.addEventListener('click', function() {
     const div = event.target.parentNode;
 
-    app.tasksCountDec();
+    app.tasksCountDec(event.target.parentNode);
     div.remove();
   })
 
