@@ -43,52 +43,52 @@ App.prototype.prepare = function() {
 
   this.lists.span = this.drawSpan();
 
-  this.list.TodayButton = this.drowListButton('today');
-  this.list.TodayButton.textContent = 'Сегодня';
-  this.list.TodayButton.classList.add('manager');
-  this.list.TodayButton.classList.add('list');
-  this.list.TodayButton.dataset.id = 'today';
+  this.lists.TodayButton = this.drowListButton('today');
+  this.lists.TodayButton.textContent = 'Сегодня';
+  this.lists.TodayButton.classList.add('manager');
+  this.lists.TodayButton.classList.add('list');
+  this.lists.TodayButton.dataset.id = 'today';
 
-  this.list.addListButton = this.drowListButton();
-  this.list.addListButton.textContent = '+';
-  this.list.addListButton.classList.add('listAdd');
+  this.addListButton = this.drowListButton();
+  this.addListButton.textContent = '+';
+  this.addListButton.classList.add('listAdd');
 
-  this.list.input = this.drawInput();
-  this.list.input.classList.add('input');
-  this.list.input.placeholder = 'Add Task';
+  this.addBlockInput = this.drawInput();
+  this.addBlockInput.classList.add('input');
+  this.addBlockInput.placeholder = 'Add Task';
 
-  this.list.select = this.drawSelect();
-  this.list.select.classList.add('priority');
+  this.addBlockSelect = this.drawSelect();
+  this.addBlockSelect.classList.add('priority');
 
-  this.list.optionHigth = this.drawOption("Higth");
-  this.list.optionMedium = this.drawOption("Medium");
-  this.list.optionLow = this.drawOption("Low");
+  this.addBlockOptionHigth = this.drawOption("Higth");
+  this.addBlockOptionMedium = this.drawOption("Medium");
+  this.addBlockOptionLow = this.drawOption("Low");
 
-  this.list.taskList = this.drawDiv();
-  this.list.taskList.classList.add('taskList');
+  this.taskList = this.drawDiv();
+  this.taskList.classList.add('taskList');
 
-  this.list.ul = this.drawUl();
-  this.list.ul.classList.add('ulClass');
+  this.taskList.ul = this.drawUl();
+  this.taskList.ul.classList.add('ulClass');
 
-  this.list.taskCount = this.drawSpan();
-  this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
-  this.list.taskCount.classList.add('taskCount');
+  this.taskList.Counter = this.drawSpan();
+  this.taskList.Counter.textContent = `Tasks: ${this.list.counter}`;
+  this.taskList.Counter.classList.add('taskCount');
 
-  this.list.select.append(this.list.optionHigth);
-  this.list.select.append(this.list.optionMedium);
-  this.list.select.append(this.list.optionLow);
+  this.addBlockSelect.append(this.addBlockOptionHigth);
+  this.addBlockSelect.append(this.addBlockOptionMedium);
+  this.addBlockSelect.append(this.addBlockOptionLow);
 
-  this.list.taskList.append(this.list.ul);
+  this.taskList.append(this.taskList.ul);
 
-  mainMenu.prepend(this.list.select);
-  mainMenu.prepend(this.list.input);
+  mainMenu.prepend(this.addBlockSelect);
+  mainMenu.prepend(this.addBlockInput);
 
-  this.lists.append(this.list.TodayButton);
-  this.lists.append(this.list.addListButton);
+  this.lists.append(this.lists.TodayButton);
+  this.lists.append(this.addListButton);
 
   mainBlock.append(this.lists);
-  mainBlock.append(this.list.taskList);
-  mainBlock.append(this.list.taskCount);
+  mainBlock.append(this.taskList);
+  mainBlock.append(this.taskList.Counter);
 
 };
 
@@ -99,28 +99,44 @@ App.prototype.listAdd = function() {
 
   listAdd.addEventListener('click', function() {
 
-    const listName = prompt("Введите название листа");
+    const newListInput = document.createElement('input');
+    newListInput.classList.add('newListInput');
 
-    if (listName === '') {
-      return
-    }
-    const newList = document.createElement('button');
+    const newListButton = document.createElement('button');
+    newListButton.classList.add('listAdd');
+    newListButton.textContent = '+';
 
-    newList.textContent = listName;
-    newList.classList.add('manager','list');
-    newList.dataset.id = listName;
+    self.lists.append(newListInput)
+    self.lists.append(newListButton)
+    self.lists.removeChild(self.addListButton);
 
-    self.lists.append(newList);
-    self.lists.append(self.list.addListButton);
+    newListInput.focus();
 
-    const manager = new TaskManager(listName);
-    self.managers.push(manager);
-    self.bindButtonEvent(newList);
+    newListButton.addEventListener('click', function() {
+      
+      const listName = newListInput.value;
+      if (listName === '') {
+        return
+      }
 
-    self.bindButtonEvent(newList);
+      const newList = document.createElement('button');
 
+      newList.textContent = listName;
+      newList.classList.add('manager','list');
+      newList.dataset.id = listName;
+
+      self.lists.append(newList);
+      self.lists.append(self.addListButton);
+
+      const manager = new TaskManager(listName);
+      self.managers.push(manager);
+      self.bindButtonEvent(newList);
+
+      self.lists.removeChild(newListInput);
+      self.lists.removeChild(newListButton);
+
+    })
   })
-
 };
 
 App.prototype.drawSpan = function() {
@@ -149,13 +165,13 @@ App.prototype.drawUl = function() {
    return document.createElement('ul');
 };
 
-App.prototype.drowListButton = function(name) {
+App.prototype.drowListButton = function() {
   return listButton = document.createElement('button');
 };
 
 App.prototype.drawButton = function() {
   const addtaskButton = document.querySelector('.button');
-  this.ul = document.querySelector('.ulClass');
+  this.taskList.ul = document.querySelector('.ulClass');
 
   const self = this;
   const buttons = document.querySelectorAll('.manager');
@@ -173,7 +189,7 @@ App.prototype.drawButton = function() {
     const priority = document.querySelector('.priority').value;
 
     self.tasksCountInc();
-    self.list.taskCount.style.display = 'block';
+    self.taskList.Counter.style.display = 'block';
     self.inputValue = document.querySelector('.input');
 
     const name = self.inputValue.value;
@@ -193,12 +209,12 @@ App.prototype.fillByManagerList = function(manager) {
 };
 
 App.prototype.AddToUl = function(task) {
-  this.ul.append(task);
+  this.taskList.ul.append(task);
 };
 
 App.prototype.tasksCountInc = function() {
   this.list.counter++;
-  this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
+  this.taskList.Counter.textContent = `Tasks: ${this.list.counter}`;
 };
 
 App.prototype.tasksCountDec = function(event) {
@@ -212,7 +228,7 @@ App.prototype.tasksCountDec = function(event) {
 
   }
   this.list.counter--;
-  this.list.taskCount.textContent = `Tasks: ${this.list.counter}`;
+  this.taskList.Counter.textContent = `Tasks: ${this.list.counter}`;
 };
 
 App.prototype.bindButtonEvent = function(button) {
@@ -221,7 +237,7 @@ App.prototype.bindButtonEvent = function(button) {
 
     const clickedButton = event.target;
     const id = clickedButton.dataset.id;
-    self.ul.innerHTML = '';
+    self.taskList.ul.innerHTML = '';
 
     for (let i = 0; i < self.managers.length; i++) {
       if (self.managers[i].name === id) {

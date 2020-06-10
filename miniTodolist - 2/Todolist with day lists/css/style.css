@@ -171,5 +171,18 @@ body {
   background-color: #EDEEEF;
   font-size: 26px;
   color: black;
-  padding: 0;
+  margin-bottom: 0;
+}
+.listAdd {
+  cursor: pointer;
+}
+.newListInput {
+  border: none;
+  font-size: 18px;
+  width: 100px;
+  margin-left: 5px;
+  background-color: #ECEDEE;
+  color: #757575;
+  border-bottom: 1px solid white;
+  margin-bottom: 2px;
 }
