@@ -112,30 +112,38 @@ App.prototype.listAdd = function() {
 
     newListInput.focus();
 
-    newListButton.addEventListener('click', function() {
-      
-      const listName = newListInput.value;
-      if (listName === '') {
-        return
+      (function() {
+        document.querySelector('.newListInput').addEventListener('keydown', function(e) {
+          if (e.keyCode === 13) {
+            createNewList();
+          }
+        });
+      })();
+
+      newListButton.addEventListener('click', createNewList)
+
+      function createNewList() {
+        listName = newListInput.value;
+        if (listName === '') {
+          return
+        }
+
+        const newList = document.createElement('button');
+
+        newList.textContent = listName;
+        newList.classList.add('manager','list');
+        newList.dataset.id = listName;
+
+        self.lists.append(newList);
+        self.lists.append(self.addListButton);
+
+        const manager = new TaskManager(listName);
+        self.managers.push(manager);
+        self.bindButtonEvent(newList);
+
+        self.lists.removeChild(newListInput);
+        self.lists.removeChild(newListButton);
       }
-
-      const newList = document.createElement('button');
-
-      newList.textContent = listName;
-      newList.classList.add('manager','list');
-      newList.dataset.id = listName;
-
-      self.lists.append(newList);
-      self.lists.append(self.addListButton);
-
-      const manager = new TaskManager(listName);
-      self.managers.push(manager);
-      self.bindButtonEvent(newList);
-
-      self.lists.removeChild(newListInput);
-      self.lists.removeChild(newListButton);
-
-    })
   })
 };
 

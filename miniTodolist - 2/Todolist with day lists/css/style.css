@@ -16,9 +16,9 @@ body {
 }
 
 .addButton {
+  float: left;
   margin-top: 30px;
   outline: none;
-  float: left;
   margin-left: 30px;
   cursor: pointer;
   border: none;
@@ -31,6 +31,7 @@ body {
   background-color: #486EE3;
 }
 
+
 .addList {
   display: block;
   width: 730px;
@@ -40,8 +41,9 @@ body {
 .input {
   border: none;
   width: 450px;
-  padding: 10px;
-  border-radius: 3px;
+  padding: 6px 15px;
+  border-radius: 10px;
+  outline: none;
 }
 .priority {
   margin-left: 5px;
@@ -49,6 +51,8 @@ body {
   width: 100px;
   padding: 8px;
   border: none;
+  border-radius: 10px;
+  outline: none;
 }
 .button {
   margin-top: 30px;
@@ -60,7 +64,13 @@ body {
   width: 120px;
   height: 35px;
   background-color: #7F8186;
-  border-radius: 7px;
+  border-radius: 10px;
+  outline: none;
+}
+.button:hover {
+  background-color: #9DA5B4;
+}
+.addButton:focus {
   outline: none;
 }
 .ulClass {
@@ -185,4 +195,5 @@ body {
   color: #757575;
   border-bottom: 1px solid white;
   margin-bottom: 2px;
+  outline: none;
 }
