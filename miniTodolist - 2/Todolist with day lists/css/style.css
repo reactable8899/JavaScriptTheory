@@ -113,7 +113,7 @@ body {
 }
 .priorityClassHigth {
   margin-right: 30px;
-  padding: 2px 7px;
+  padding: 2px 10px;
   background-color: #E95E51;
   border: 1px solid #E95E51;
   border-radius: 25px;
@@ -122,7 +122,7 @@ body {
 }
 .priorityClassMedium {
   margin-right: 30px;
-  padding: 2px 7px;
+  padding: 2px 10px;
   background-color: #7F8186;
   border: 1px solid #7F8186;
   border-radius: 25px;
@@ -131,7 +131,7 @@ body {
 }
 .priorityClassLow {
   margin-right: 30px;
-  padding: 2px 7px;
+  padding: 2px 10px;
   background-color: #0EBB82;
   border: 1px solid #0EBB82;
   border-radius: 25px;
@@ -157,7 +157,7 @@ body {
   margin-left: 100px;
 }
 .list {
-  border-radius: 0 15px 0 0;
+  border-radius: 0 5px 0 0;
   margin-right: 1px;
   padding: 5px;
   background-color: white;
@@ -166,7 +166,7 @@ body {
   width: 100px;
   cursor: pointer;
   border-bottom: 1px solid silver;
-  color: #757575;
+  color: #7F8186;
   box-shadow: 5px 0px 8px -3px rgba(0,0,0,0.25);
 
 }

@@ -12,7 +12,6 @@ const App = function() {
   this.drawButton();
   this.showAddBlock();
 };
-
 App.prototype.showAddBlock = function() {
   let show = 0;
   const addBlockList = document.querySelector('.main__block_show');
@@ -129,7 +128,6 @@ App.prototype.listAdd = function() {
         }
 
         const newList = document.createElement('button');
-
         newList.textContent = listName;
         newList.classList.add('manager','list');
         newList.dataset.id = listName;
