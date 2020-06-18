@@ -51,6 +51,8 @@ App.prototype.prepare = function() {
   this.addListButton = this.drowListButton();
   this.addListButton.textContent = '+';
   this.addListButton.classList.add('listAdd');
+  this.addListButton.dataset.toggle="modal"
+  this.addListButton.dataset.target="#myModal";
 
   this.addBlockInput = this.drawInput();
   this.addBlockInput.classList.add('input');
@@ -98,28 +100,22 @@ App.prototype.listAdd = function() {
 
   listAdd.addEventListener('click', function() {
 
-    const newListInput = document.createElement('input');
-    newListInput.classList.add('newListInput');
-
+    const newListInput = document.querySelector('.newListInput');
     const newListButton = document.createElement('button');
     newListButton.classList.add('listAdd');
     newListButton.textContent = '+';
-
-    self.lists.append(newListInput)
-    self.lists.append(newListButton)
-    self.lists.removeChild(self.addListButton);
-
-    newListInput.focus();
 
       (function() {
         document.querySelector('.newListInput').addEventListener('keydown', function(e) {
           if (e.keyCode === 13) {
             createNewList();
+            newListInput.value = '';
           }
         });
       })();
 
-      newListButton.addEventListener('click', createNewList)
+      const addList = document.querySelector('#addList');
+      addList.addEventListener('click', createNewList)
 
       function createNewList() {
         listName = newListInput.value;
@@ -138,9 +134,8 @@ App.prototype.listAdd = function() {
         const manager = new TaskManager(listName);
         self.managers.push(manager);
         self.bindButtonEvent(newList);
+        newListInput.value = '';
 
-        self.lists.removeChild(newListInput);
-        self.lists.removeChild(newListButton);
       }
   })
 };

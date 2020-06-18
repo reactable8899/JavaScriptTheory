@@ -188,12 +188,11 @@ body {
 }
 .newListInput {
   border: none;
+  border-radius: 5px;
   font-size: 18px;
-  width: 100px;
+  width: 400px;
   margin-left: 5px;
-  background-color: #ECEDEE;
   color: #757575;
-  border-bottom: 1px solid white;
-  margin-bottom: 2px;
+  border-bottom: 2px solid #EDEEEF;
   outline: none;
 }
