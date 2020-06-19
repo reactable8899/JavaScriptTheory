@@ -46,8 +46,9 @@ App.prototype.prepare = function() {
 
   this.lists.span = Dom.make('span');
 
-  this.lists.TodayButton = Dom.make('button', ['manager', 'list']);
-  this.lists.TodayButton.textContent = 'Сегодня';
+  this.lists.TodayButton = Dom.make('button', ['manager', 'list'], {
+    textContent: 'Cегодня'
+  });
   this.lists.TodayButton.dataset.id = 'today';
 
   this.addListButton = Dom.make('button', ['listAdd']);
