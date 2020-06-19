@@ -1,4 +1,4 @@
-export default App = function() {
+const App = function() {
 
   this.managers = [];
   this.currentManager = null;
@@ -251,3 +251,4 @@ App.prototype.bindButtonEvent = function(button) {
 
   });
 };
+export default App

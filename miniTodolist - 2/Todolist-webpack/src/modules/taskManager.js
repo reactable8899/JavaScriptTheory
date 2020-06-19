@@ -1,4 +1,4 @@
-export default TaskManager = function(name) {
+const TaskManager = function(name) {
   this.name = name;
   this.list = [];
 };
@@ -11,3 +11,4 @@ TaskManager.prototype.addTask = function(name,priority,app) {
 
   return task;
 };
+export default TaskManager
