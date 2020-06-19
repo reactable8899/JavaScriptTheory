@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <title>TodoList</title>
   </head>
   <body>
@@ -17,6 +20,24 @@
       </div>
     </div>
 
+    <div class="container">
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Добавить Лист</h4>
+              <button type="button" class="close" data-dismiss="modal">×</button>
+            </div>
+            <div class="modal-body">
+              <input type="text" name="" value="" class="newListInput" placeholder="Название листа">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal" id="addList">Добавить</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="./js/taskManager.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/task.js"></script>
