@@ -1,4 +1,4 @@
-export default Task = function(name, priority,app) {
+const Task = function(name, priority,app) {
 
   this.name = name;
   this.priority = priority;
@@ -76,4 +76,5 @@ Task.prototype.getPriority = function(prioritys,span) {
       span.classList.add('priorityClassLow');
     }
   }
-}
+};
+export default Task;
