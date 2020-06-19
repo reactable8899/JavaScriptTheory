@@ -24,4 +24,8 @@ Dom.prototype.findAll = function(element, selector) {
   return element.querySelectorAll(selector);
 };
 
+Dom.prototype.appendTo = function(element, child) {
+  element.append(child);
+};
+
 export default new Dom();
