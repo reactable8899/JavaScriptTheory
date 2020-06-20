@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import TaskManager from "./modules/taskManager";
 import Dom from "./modules/dom";
 
@@ -122,7 +121,7 @@ App.prototype.listAdd = function() {
     addList.addEventListener('click', createNewList);
 
     function createNewList() {
-      
+
       const listName = newListInput.value;
       if (listName === '') {
         return
@@ -228,11 +227,4 @@ App.prototype.bindButtonEvent = function(button) {
   });
 };
 
-export default App;
-=======
-import TaskManager from './modules/taskManager'
-import App from './modules/main'
-import Task from './modules/task'
-
 export default App
->>>>>>> master
