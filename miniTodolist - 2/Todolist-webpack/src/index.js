@@ -18,10 +18,10 @@ const App = function() {
 
 App.prototype.showAddBlock = function() {
   let show = 0;
-  const addBlockList = document.querySelector('.main__block_show');
-  const buttonList = document.querySelector('.lists');
+  const addBlockList = Dom.find(document,'.main__block_show');
+  const buttonList = Dom.find(document,'.lists');
 
-  const addBlockButton = document.querySelector('.addButton');
+  const addBlockButton = Dom.find(document,'.addButton');
   addBlockButton.addEventListener('click', function() {
 
     if (show === 0) {
@@ -38,21 +38,20 @@ App.prototype.showAddBlock = function() {
 };
 
 App.prototype.prepare = function() {
-  const mainBlock = document.querySelector('.main__block');
-  const mainMenu = document.querySelector('.main__block_show');
+  const mainBlock = Dom.find(document,'.main__block');
+  const mainMenu = Dom.find(document,'.main__block_show');
 
-  this.lists = Dom.make('div');
-  this.lists.classList.add('lists');
-
+  this.lists = Dom.make('div',['lists']);
   this.lists.span = Dom.make('span');
 
-  this.lists.TodayButton = Dom.make('button', ['manager', 'list'], {
+  this.lists.TodayButton = Dom.make('button', ['manager','list'], {
     textContent: 'Cегодня'
   });
   this.lists.TodayButton.dataset.id = 'today';
 
-  this.addListButton = Dom.make('button', ['listAdd']);
-  this.addListButton.textContent = '+';
+  this.addListButton = Dom.make('button', ['listAdd'], {
+    textContent: '+'
+  });
   this.addListButton.dataset.toggle="modal";
   this.addListButton.dataset.target="#myModal";
 
@@ -80,36 +79,35 @@ App.prototype.prepare = function() {
     textContent: `Tasks: ${this.list.counter}`
   });
 
-  this.addBlockSelect.append(this.addBlockOptionHigth);
-  this.addBlockSelect.append(this.addBlockOptionMedium);
-  this.addBlockSelect.append(this.addBlockOptionLow);
+  Dom.appendTo(this.addBlockSelect,this.addBlockOptionHigth);
+  Dom.appendTo(this.addBlockSelect,this.addBlockOptionMedium);
+  Dom.appendTo(this.addBlockSelect,this.addBlockOptionLow);
 
-  this.taskList.append(this.taskList.ul);
+  Dom.appendTo(this.taskList,this.taskList.ul);
 
   mainMenu.prepend(this.addBlockSelect);
   mainMenu.prepend(this.addBlockInput);
 
-  this.lists.append(this.lists.TodayButton);
-  this.lists.append(this.addListButton);
+  Dom.appendTo(this.lists,this.lists.TodayButton);
+  Dom.appendTo(this.lists,this.addListButton);
 
-  mainBlock.append(this.lists);
-  mainBlock.append(this.taskList);
-  mainBlock.append(this.taskList.Counter);
+  Dom.appendTo(mainBlock,this.lists);
+  Dom.appendTo(mainBlock,this.taskList);
+  Dom.appendTo(mainBlock,this.taskList.Counter);
 
 };
 
 App.prototype.listAdd = function() {
 
   const self = this;
-  const listAdd = document.querySelector('.listAdd');
+  const listAdd = Dom.find(document,'.listAdd');
 
   listAdd.addEventListener('click', function() {
 
-    const newListInput = document.querySelector('.newListInput');
-
-    const newListButton = document.createElement('button');
-    newListButton.classList.add('listAdd');
-    newListButton.textContent = '+';
+    const newListInput = Dom.find(document,'.newListInput');
+    const newListButton = Dom.make('button',['listAdd'], {
+      textContent: '+'
+    });
 
     document.querySelector('.newListInput').addEventListener('keydown', function(e) {
       if (e.keyCode === 13) {
@@ -118,23 +116,24 @@ App.prototype.listAdd = function() {
       }
     });
 
-    const addList = document.querySelector('#addList');
+    const addList = Dom.find(document,'#addList');
+
     addList.addEventListener('click', createNewList);
 
     function createNewList() {
+      
       const listName = newListInput.value;
-
       if (listName === '') {
         return
       }
 
-      const newList = document.createElement('button');
-      newList.textContent = listName;
-      newList.classList.add('manager','list');
+      const newList = Dom.make('button', ['manager','list'], {
+        textContent: listName;
+      });
       newList.dataset.id = listName;
 
-      self.lists.append(newList);
-      self.lists.append(self.addListButton);
+      Dom.appendTo(self.lists, newList);
+      Dom.appendTo(self.lists, self.addListButton);
 
       const manager = new TaskManager(listName);
       self.managers.push(manager);
@@ -144,17 +143,13 @@ App.prototype.listAdd = function() {
     }
   })
 };
-
-App.prototype.drawUl = function() {
-  return document.createElement('ul');
-};
-
 App.prototype.drawButton = function() {
-  const addtaskButton = document.querySelector('.button');
-  this.taskList.ul = document.querySelector('.ulClass');
+
+  const addtaskButton = Dom.find(document,'.button');
+  this.taskList.ul = Dom.find(document,'.ulClass');
 
   const self = this;
-  const buttons = document.querySelectorAll('.manager');
+  const buttons = Dom.findAll(document,'.manager');
 
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
@@ -190,7 +185,7 @@ App.prototype.fillByManagerList = function(manager) {
 };
 
 App.prototype.AddToUl = function(task) {
-  this.taskList.ul.append(task);
+  Dom.appendTo(this.taskList.ul,task);
 };
 
 App.prototype.tasksCountInc = function() {
@@ -200,14 +195,14 @@ App.prototype.tasksCountInc = function() {
 
 App.prototype.tasksCountDec = function(event) {
 
-  const listText = event.querySelector('.listText').textContent;
-  for (let i = 0; i < this.currentManager.list.length; i++) {
+  const listText = Dom.find(event,'.listText').textContent;
 
+  for (let i = 0; i < this.currentManager.list.length; i++) {
     if (this.currentManager.list[i].name === listText) {
       this.currentManager.list.splice(i, 1);
     }
-
   }
+
   this.list.counter--;
   this.taskList.Counter.textContent = `Tasks: ${this.list.counter}`;
 };
@@ -233,4 +228,3 @@ App.prototype.bindButtonEvent = function(button) {
 };
 
 export default App;
-

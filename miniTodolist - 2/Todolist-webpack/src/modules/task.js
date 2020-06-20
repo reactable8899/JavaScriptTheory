@@ -1,3 +1,4 @@
+import Dom from "./modules/dom";
 const Task = function(name, priority,app) {
 
   this.name = name;
@@ -10,26 +11,22 @@ const Task = function(name, priority,app) {
   let n = 0;
   const self = this;
 
-  const div = document.createElement('div');
-  div.classList.add('list__task');
+  const div = Dom.make('div',['list__task']);
 
-  const span = document.createElement('span');
+  const span = Dom.make('span');
   span.classList.add = Task.prototype.getPriority(priority,span);
 
-  const spanText = document.createElement('span');
-  spanText.classList.add('listText');
-  spanText.textContent = name;
-
-  const buttonDelete = document.createElement('button');
-  buttonDelete.textContent = '...';
-  buttonDelete.classList.add('list__button');
-
-  const deleteSpan = document.createElement('button');
-  deleteSpan.classList.add('deleteSpan');
-  deleteSpan.textContent = 'Удалить';
+  const spanText = Dom.make('span', ['listText'], {
+    textContent: name
+  });
+  const buttonDelete = Dom.make('button', ['list__button'], {
+    textContent: '...'
+  });
+  const deleteSpan = Dom.make('button', ['deleteSpan'], {
+    textContent: 'Удалить
+  });
 
   buttonDelete.addEventListener('click', function(event) {
-
     if (n === 0) {
       div.appendChild(deleteSpan);
       deleteSpan.classList.add('changeDisplayBlock');
@@ -40,7 +37,6 @@ const Task = function(name, priority,app) {
       deleteSpan.classList.remove('changeDisplayBlock');
       n--;
     }
-
   });
 
   deleteSpan.addEventListener('click', function() {
@@ -55,7 +51,6 @@ const Task = function(name, priority,app) {
   div.appendChild(buttonDelete);
 
   this.dom.div = div;
-
 };
 
 Task.prototype.getElement = function() {
@@ -63,8 +58,7 @@ Task.prototype.getElement = function() {
 };
 
 Task.prototype.getPriority = function(prioritys,span) {
-
-  if (prioritys === 'Higth') {
+  if (prioritys === 'High') {
     span.textContent = prioritys;
     span.classList.add('priorityClassHigth');
   } else {
