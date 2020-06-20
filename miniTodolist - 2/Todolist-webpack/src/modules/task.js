@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import Dom from "./modules/dom";
+=======
+>>>>>>> master
 const Task = function(name, priority,app) {
 
   this.name = name;
@@ -70,5 +73,10 @@ Task.prototype.getPriority = function(prioritys,span) {
       span.classList.add('priorityClassLow');
     }
   }
+<<<<<<< HEAD
 };
 export default Task;
+=======
+}
+export default Task
+>>>>>>> master
