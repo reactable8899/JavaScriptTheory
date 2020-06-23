@@ -1,3 +1,4 @@
+import Task from './task';
 const TaskManager = function(name) {
   this.name = name;
   this.list = [];

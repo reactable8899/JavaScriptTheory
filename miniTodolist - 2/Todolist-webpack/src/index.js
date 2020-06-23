@@ -1,3 +1,5 @@
+import "./css/style.css";
+import "./css/bootstrap.min.css";
 import TaskManager from "./modules/taskManager";
 import Dom from "./modules/dom";
 
@@ -128,7 +130,7 @@ App.prototype.listAdd = function() {
       }
 
       const newList = Dom.make('button', ['manager','list'], {
-        textContent: listName;
+        textContent: listName
       });
       newList.dataset.id = listName;
 
