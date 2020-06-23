@@ -1,4 +1,4 @@
-import Dom from "./modules/dom";
+import Dom from "./dom";
 const Task = function(name, priority,app) {
 
   this.name = name;
@@ -23,7 +23,7 @@ const Task = function(name, priority,app) {
     textContent: '...'
   });
   const deleteSpan = Dom.make('button', ['deleteSpan'], {
-    textContent: 'Удалить
+    textContent: 'Удалить'
   });
 
   buttonDelete.addEventListener('click', function(event) {

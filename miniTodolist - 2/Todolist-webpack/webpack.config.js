@@ -2,23 +2,25 @@ const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
+
+  context: path.join(__dirname, 'src'),
   entry: {
-  index: './src/index.js',
+  index: './index.js',
   styles: './css/style.css'
 },
   output: {
-    filename: 'bundle.js',
+    filename: '[name].js',
     library: 'TodoList',
     libraryTarget: 'umd',
     libraryExport: 'default',
-    path: path.resolve(__dirname, 'dist')
+    path: path.join(__dirname, 'dist')
   },
   module: {
     rules: [
       {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
+          fallback: 'style-loader',
           use: 'css-loader'
         })
       }
