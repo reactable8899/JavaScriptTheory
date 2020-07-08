@@ -1,5 +1,3 @@
-import "./css/style.css";
-import "./css/bootstrap.min.css";
 import TaskManager from "./modules/taskManager";
 import Dom from "./modules/dom";
 
@@ -97,6 +95,8 @@ App.prototype.prepare = function() {
   Dom.appendTo(mainBlock,this.taskList);
   Dom.appendTo(mainBlock,this.taskList.Counter);
 
+  const todayList = document.querySelector('.manager');
+  this.currentManager = todayList;
 };
 
 App.prototype.listAdd = function() {
@@ -145,6 +145,7 @@ App.prototype.listAdd = function() {
     }
   })
 };
+
 App.prototype.drawButton = function() {
 
   const addtaskButton = Dom.find(document,'.button');
@@ -155,7 +156,6 @@ App.prototype.drawButton = function() {
 
   for (let i = 0; i < buttons.length; i++) {
     const button = buttons[i];
-
     const manager = new TaskManager(button.dataset.id);
     this.managers.push(manager);
     this.bindButtonEvent(button);
@@ -169,7 +169,6 @@ App.prototype.drawButton = function() {
     self.taskList.Counter.style.display = 'block';
 
     self.inputValue = Dom.find(document, '.input');
-
     const name = self.inputValue.value;
     const task = self.currentManager.addTask(name,priority,self);
 
@@ -178,12 +177,6 @@ App.prototype.drawButton = function() {
     self.inputValue.focus();
 
   });
-};
-
-App.prototype.fillByManagerList = function(manager) {
-  for ( let i = 0; i < manager.list.length; i++) {
-    this.AddToUl(manager.list[i].getElement())
-  }
 };
 
 App.prototype.AddToUl = function(task) {
@@ -229,4 +222,9 @@ App.prototype.bindButtonEvent = function(button) {
   });
 };
 
+App.prototype.fillByManagerList = function(manager) {
+  for ( let i = 0; i < manager.list.length; i++) {
+    this.AddToUl(manager.list[i].getElement())
+  }
+};
 export default App

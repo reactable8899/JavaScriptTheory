@@ -16,6 +16,7 @@ const todo = function() {
   }
 
   function init() {
+    domModule.fillList();
 
     button.addEventListener('click', function() {
       const priority = document.querySelector('.priority').value;

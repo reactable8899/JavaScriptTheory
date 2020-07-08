@@ -21,10 +21,14 @@ Dom.prototype.find = function (element, selector) {
 };
 
 Dom.prototype.findAll = function(element, selector) {
+  // const getManager = localStorage.getItem('today')
+  // const localManager = JSON.parse(getManager)
+  // console.log(localManager)
   return element.querySelectorAll(selector);
 };
 
 Dom.prototype.appendTo = function(element, child) {
+
   element.append(child);
 };
 
