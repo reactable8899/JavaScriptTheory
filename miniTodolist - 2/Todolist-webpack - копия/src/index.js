@@ -1,10 +1,11 @@
 import TaskManager from "./modules/taskManager";
 import Dom from "./modules/dom";
+let i = 0;
 const App = function() {
 
   this.managers = [];
   this.currentManager = null;
-  
+
   this.list = {
     counter:0
   };
@@ -14,8 +15,6 @@ const App = function() {
   this.drawButton();
   this.showAddBlock();
   this.firstList();
-  this.getfromLocal(this.managers[0]);
-  this.getLocalButtons();
 };
 
 App.prototype.showAddBlock = function() {
@@ -141,7 +140,7 @@ App.prototype.listAdd = function() {
       self.managers.push(manager);
       self.bindButtonEvent(newList);
       newListInput.value = '';
-      self.SetLocalButtons(listName);
+
     }
   })
 };
@@ -176,7 +175,6 @@ App.prototype.drawButton = function() {
       self.AddToUl(task.getElement());
       self.inputValue.value = '';
       self.inputValue.focus();
-      self.setToLocal(self.currentManager);
     }
 
   });
@@ -194,7 +192,6 @@ App.prototype.tasksCountDec = function(event) {
   for (let i = 0; i < this.currentManager.list.length; i++) {
     if (this.currentManager.list[i].name === listText) {
       this.currentManager.list.splice(i, 1);
-      this.setToLocal(this.currentManager);
     }
   }
 
@@ -204,7 +201,9 @@ App.prototype.tasksCountDec = function(event) {
 
 App.prototype.firstList = function() {
   this.currentManager = this.managers[0];
+  this.fillByManagerList(this.currentManager);
 };
+
 App.prototype.bindButtonEvent = function(button) {
   const self = this;
   button.addEventListener('click', function(event) {
@@ -220,75 +219,28 @@ App.prototype.bindButtonEvent = function(button) {
 
       }
     }
-    self.getfromLocal(self.currentManager);
+    self.fillByManagerList(self.currentManager);
+    self.LocalManager(self.currentManager)
 
   });
 };
-App.prototype.setToLocal = function(manager) {
-  if (manager != undefined) {
-    const setLocalList = [];
-    for(let i = 0; i < manager.list.length; i++) {
-      const localObj = {
-        text: manager.list[i].name,
-        priority: manager.list[i].priority
-      }
-      setLocalList.push(localObj);
-    }
+App.prototype.LocalManager = function(manager) {
 
-    localStorage.setItem(manager.name,JSON.stringify(setLocalList))
+  const localObj = {
+    text: manager.list[i].name,
+    priority: manager.list[i].priority
   }
-};
-App.prototype.getfromLocal = function(manager) {
+  i++;
+  const localList = [];
+  localList.push(localObj)
+  localStorage.setItem(manager.list[0].name,JSON.stringify(localList))
+  console.log(manager)
+}
 
-  const getfromLocal = JSON.parse(localStorage.getItem(manager.name));
-  const getLocalList = [];
-
-  const fromLocalList = {
-    name: manager.name,
-    list: getLocalList
-  }
-  if (getfromLocal != null) {
-    for(let i = 0; i < getfromLocal.length; i++) {
-      const localTask = this.currentManager.addTask(getfromLocal[i].text,getfromLocal[i].priority,this);
-      getLocalList.push(localTask)
-    }
-  }
-    this.fillByManagerList(fromLocalList);
-};
-App.prototype.SetLocalButtons = function(button) {
-  const buttonList = [];
-  const localButton = JSON.parse(localStorage.getItem("buttonsList"));
-  if (localButton != null) {
-    console.log("as")
-    for (let i = 0; i < localButton.length; i++) {
-      buttonList.push(localButton[i]);
-    }
-  }
-  buttonList.push(button);
-  localStorage.setItem("buttonsList",JSON.stringify(buttonList));
-};
-App.prototype.getLocalButtons = function() {
-  const localButtons = JSON.parse(localStorage.getItem("buttonsList"));
-  if (localButtons != null) {
-    for(let j = 0; j < localButtons.length; j++) {
-      const newList = Dom.make('button', ['manager','list'], {
-        textContent: localButtons[j]
-      });
-      newList.dataset.id = localButtons[j];
-
-      Dom.appendTo(this.lists, newList);
-      Dom.appendTo(this.lists, this.addListButton);
-
-      const manager = new TaskManager(localButtons[j]);
-      this.managers.push(manager);
-      this.bindButtonEvent(newList);
-    }
-  }
-};
 App.prototype.fillByManagerList = function(manager) {
-    for ( let i = 0; i < manager.list.length; i++) {
-      this.AddToUl(manager.list[i].getElement())
-    }
+  for ( let i = 0; i < manager.list.length; i++) {
+    this.AddToUl(manager.list[i].getElement())
+  }
 };
 App.prototype.AddToUl = function(task) {
   Dom.appendTo(this.taskList.ul,task);
