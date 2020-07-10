@@ -1,3 +1,6 @@
+:root {
+  --bgblack: black;
+}
 body {
   margin: 0;
   padding: 0;
@@ -7,7 +10,7 @@ body {
     margin: auto;
     width: 1100px;
     height: 600px;
-    background-color: #EDEEEF;
+    background-color: var(--bgblack);
 
     &_show {
       display: block;
@@ -15,6 +18,10 @@ body {
       margin: 0 auto;
       margin-bottom: 40px;
     }
+  }
+
+  a {
+    color: black;
   }
 }
 /* .main__block {
