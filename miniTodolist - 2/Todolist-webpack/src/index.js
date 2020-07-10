@@ -1,42 +1,21 @@
 import TaskManager from "./modules/taskManager";
 import Dom from "./modules/dom";
+require('./css/style.css');
 const App = function() {
 
   this.managers = [];
   this.currentManager = null;
-  
+
   this.list = {
-    counter:0
+    counter: 0
   };
 
   this.prepare();
-  this.listAdd();
+  this.addNewList();
   this.drawButton();
-  this.showAddBlock();
-  this.firstList();
+  this.setFirstList();
   this.getfromLocal(this.managers[0]);
   this.getLocalButtons();
-};
-
-App.prototype.showAddBlock = function() {
-  let show = 0;
-  const addBlockList = Dom.find(document,'.main__block_show');
-  const buttonList = Dom.find(document,'.lists');
-
-  const addBlockButton = Dom.find(document,'.addButton');
-  addBlockButton.addEventListener('click', function() {
-
-    if (show === 0) {
-      addBlockList.style.display = 'block';
-      buttonList.style.display = 'block';
-      show++;
-    } else {
-      addBlockList.style.display = 'none';
-      buttonList.style.display = 'none';
-      show--;
-    }
-
-  });
 };
 
 App.prototype.prepare = function() {
@@ -54,11 +33,15 @@ App.prototype.prepare = function() {
   this.addListButton = Dom.make('button', ['listAdd'], {
     textContent: '+'
   });
+  this.addTasksButton = Dom.make('button', ['button'], {
+    textContent: 'Add Task'
+  });
+
   this.addListButton.dataset.toggle="modal";
   this.addListButton.dataset.target="#myModal";
 
   this.addBlockInput = Dom.make('input', ['input']);
-  this.addBlockInput.placeholder = 'Add Task';
+  this.addBlockInput.placeholder = 'Add Task...';
 
   this.addBlockSelect = Dom.make('select', ['priority']);
 
@@ -85,10 +68,11 @@ App.prototype.prepare = function() {
   Dom.appendTo(this.addBlockSelect,this.addBlockOptionMedium);
   Dom.appendTo(this.addBlockSelect,this.addBlockOptionLow);
 
-  Dom.appendTo(this.taskList,this.taskList.ul);
+  Dom.appendTo(this.taskList,this.addBlockInput);
+  Dom.appendTo(this.taskList,this.addBlockSelect);
+  Dom.appendTo(this.taskList,this.addTasksButton);
 
-  mainMenu.prepend(this.addBlockSelect);
-  mainMenu.prepend(this.addBlockInput);
+  Dom.appendTo(this.taskList,this.taskList.ul);
 
   Dom.appendTo(this.lists,this.lists.TodayButton);
   Dom.appendTo(this.lists,this.addListButton);
@@ -97,9 +81,15 @@ App.prototype.prepare = function() {
   Dom.appendTo(mainBlock,this.taskList);
   Dom.appendTo(mainBlock,this.taskList.Counter);
 
+  let counter = JSON.parse(localStorage.getItem('counter'));
+  if (counter != null) {
+    this.taskList.Counter.style.display = 'block';
+    this.taskList.Counter.textContent = `Tasks: ${counter}`;
+  }
+
 };
 
-App.prototype.listAdd = function() {
+App.prototype.addNewList = function() {
 
   const self = this;
   const listAdd = Dom.find(document,'.listAdd');
@@ -183,8 +173,10 @@ App.prototype.drawButton = function() {
 };
 
 App.prototype.tasksCountInc = function() {
-  this.list.counter++;
-  this.taskList.Counter.textContent = `Tasks: ${this.list.counter}`;
+  let counter = JSON.parse(localStorage.getItem('counter'));
+  counter++;
+  localStorage.setItem('counter',JSON.stringify(counter));
+  this.taskList.Counter.textContent = `Tasks: ${counter}`;
 };
 
 App.prototype.tasksCountDec = function(event) {
@@ -198,11 +190,13 @@ App.prototype.tasksCountDec = function(event) {
     }
   }
 
-  this.list.counter--;
-  this.taskList.Counter.textContent = `Tasks: ${this.list.counter}`;
+  let counter = JSON.parse(localStorage.getItem('counter'));
+  counter--;
+  localStorage.setItem('counter',JSON.stringify(counter));
+  this.taskList.Counter.textContent = `Tasks: ${counter}`;
 };
 
-App.prototype.firstList = function() {
+App.prototype.setFirstList = function() {
   this.currentManager = this.managers[0];
 };
 App.prototype.bindButtonEvent = function(button) {
@@ -259,7 +253,6 @@ App.prototype.SetLocalButtons = function(button) {
   const buttonList = [];
   const localButton = JSON.parse(localStorage.getItem("buttonsList"));
   if (localButton != null) {
-    console.log("as")
     for (let i = 0; i < localButton.length; i++) {
       buttonList.push(localButton[i]);
     }
