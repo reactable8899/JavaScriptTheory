@@ -43,6 +43,7 @@ const Task = function(name, priority,app) {
     const div = event.target.parentNode;
 
     app.tasksCountDec(event.target.parentNode);
+    app.setToLocal(this.currentManager);
     div.remove();
   })
 

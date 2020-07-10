@@ -1,13 +1,13 @@
 const path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
 
   context: path.join(__dirname, 'src'),
   entry: {
-  index: './index.js',
-  styles: './css/style.css'
-},
+    index: './index.js',
+    //styles: './css/style.css'
+  },
   output: {
     filename: '[name].js',
     library: 'TodoList',
@@ -19,14 +19,28 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
-      }
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '/dist/',
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: true,
+            }
+          },
+          'postcss-loader',
+        ]
+      },
     ]
   },
   plugins: [
-    new ExtractTextPlugin('[name].css')
-  ]
+    new MiniCssExtractPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css',
+      })
+  ],
 };

@@ -1,40 +1,21 @@
 import TaskManager from "./modules/taskManager";
 import Dom from "./modules/dom";
-
+require('./css/style.css');
 const App = function() {
 
   this.managers = [];
   this.currentManager = null;
 
   this.list = {
-    counter:0
+    counter: 0
   };
 
   this.prepare();
-  this.listAdd();
+  this.addNewList();
   this.drawButton();
-  this.showAddBlock();
-};
-
-App.prototype.showAddBlock = function() {
-  let show = 0;
-  const addBlockList = Dom.find(document,'.main__block_show');
-  const buttonList = Dom.find(document,'.lists');
-
-  const addBlockButton = Dom.find(document,'.addButton');
-  addBlockButton.addEventListener('click', function() {
-
-    if (show === 0) {
-      addBlockList.style.display = 'block';
-      buttonList.style.display = 'block';
-      show++;
-    } else {
-      addBlockList.style.display = 'none';
-      buttonList.style.display = 'none';
-      show--;
-    }
-
-  });
+  this.setFirstList();
+  this.getfromLocal(this.managers[0]);
+  this.getLocalButtons();
 };
 
 App.prototype.prepare = function() {
@@ -52,11 +33,15 @@ App.prototype.prepare = function() {
   this.addListButton = Dom.make('button', ['listAdd'], {
     textContent: '+'
   });
+  this.addTasksButton = Dom.make('button', ['button'], {
+    textContent: 'Add Task'
+  });
+
   this.addListButton.dataset.toggle="modal";
   this.addListButton.dataset.target="#myModal";
 
   this.addBlockInput = Dom.make('input', ['input']);
-  this.addBlockInput.placeholder = 'Add Task';
+  this.addBlockInput.placeholder = 'Add Task...';
 
   this.addBlockSelect = Dom.make('select', ['priority']);
 
@@ -83,10 +68,11 @@ App.prototype.prepare = function() {
   Dom.appendTo(this.addBlockSelect,this.addBlockOptionMedium);
   Dom.appendTo(this.addBlockSelect,this.addBlockOptionLow);
 
-  Dom.appendTo(this.taskList,this.taskList.ul);
+  Dom.appendTo(this.taskList,this.addBlockInput);
+  Dom.appendTo(this.taskList,this.addBlockSelect);
+  Dom.appendTo(this.taskList,this.addTasksButton);
 
-  mainMenu.prepend(this.addBlockSelect);
-  mainMenu.prepend(this.addBlockInput);
+  Dom.appendTo(this.taskList,this.taskList.ul);
 
   Dom.appendTo(this.lists,this.lists.TodayButton);
   Dom.appendTo(this.lists,this.addListButton);
@@ -95,11 +81,15 @@ App.prototype.prepare = function() {
   Dom.appendTo(mainBlock,this.taskList);
   Dom.appendTo(mainBlock,this.taskList.Counter);
 
-  const todayList = document.querySelector('.manager');
-  this.currentManager = todayList;
+  let counter = JSON.parse(localStorage.getItem('counter'));
+  if (counter != null) {
+    this.taskList.Counter.style.display = 'block';
+    this.taskList.Counter.textContent = `Tasks: ${counter}`;
+  }
+
 };
 
-App.prototype.listAdd = function() {
+App.prototype.addNewList = function() {
 
   const self = this;
   const listAdd = Dom.find(document,'.listAdd');
@@ -141,7 +131,7 @@ App.prototype.listAdd = function() {
       self.managers.push(manager);
       self.bindButtonEvent(newList);
       newListInput.value = '';
-
+      self.SetLocalButtons(listName);
     }
   })
 };
@@ -169,23 +159,24 @@ App.prototype.drawButton = function() {
     self.taskList.Counter.style.display = 'block';
 
     self.inputValue = Dom.find(document, '.input');
-    const name = self.inputValue.value;
-    const task = self.currentManager.addTask(name,priority,self);
+    if (self.inputValue.value != '') {
+      const name = self.inputValue.value;
+      const task = self.currentManager.addTask(name,priority,self);
 
-    self.AddToUl(task.getElement());
-    self.inputValue.value = '';
-    self.inputValue.focus();
+      self.AddToUl(task.getElement());
+      self.inputValue.value = '';
+      self.inputValue.focus();
+      self.setToLocal(self.currentManager);
+    }
 
   });
 };
 
-App.prototype.AddToUl = function(task) {
-  Dom.appendTo(this.taskList.ul,task);
-};
-
 App.prototype.tasksCountInc = function() {
-  this.list.counter++;
-  this.taskList.Counter.textContent = `Tasks: ${this.list.counter}`;
+  let counter = JSON.parse(localStorage.getItem('counter'));
+  counter++;
+  localStorage.setItem('counter',JSON.stringify(counter));
+  this.taskList.Counter.textContent = `Tasks: ${counter}`;
 };
 
 App.prototype.tasksCountDec = function(event) {
@@ -195,13 +186,19 @@ App.prototype.tasksCountDec = function(event) {
   for (let i = 0; i < this.currentManager.list.length; i++) {
     if (this.currentManager.list[i].name === listText) {
       this.currentManager.list.splice(i, 1);
+      this.setToLocal(this.currentManager);
     }
   }
 
-  this.list.counter--;
-  this.taskList.Counter.textContent = `Tasks: ${this.list.counter}`;
+  let counter = JSON.parse(localStorage.getItem('counter'));
+  counter--;
+  localStorage.setItem('counter',JSON.stringify(counter));
+  this.taskList.Counter.textContent = `Tasks: ${counter}`;
 };
 
+App.prototype.setFirstList = function() {
+  this.currentManager = this.managers[0];
+};
 App.prototype.bindButtonEvent = function(button) {
   const self = this;
   button.addEventListener('click', function(event) {
@@ -214,17 +211,79 @@ App.prototype.bindButtonEvent = function(button) {
       if (self.managers[i].name === id) {
         self.currentList = id;
         self.currentManager = self.managers[i];
+
       }
     }
-
-    self.fillByManagerList(self.currentManager);
+    self.getfromLocal(self.currentManager);
 
   });
 };
+App.prototype.setToLocal = function(manager) {
+  if (manager != undefined) {
+    const setLocalList = [];
+    for(let i = 0; i < manager.list.length; i++) {
+      const localObj = {
+        text: manager.list[i].name,
+        priority: manager.list[i].priority
+      }
+      setLocalList.push(localObj);
+    }
 
-App.prototype.fillByManagerList = function(manager) {
-  for ( let i = 0; i < manager.list.length; i++) {
-    this.AddToUl(manager.list[i].getElement())
+    localStorage.setItem(manager.name,JSON.stringify(setLocalList))
   }
+};
+App.prototype.getfromLocal = function(manager) {
+
+  const getfromLocal = JSON.parse(localStorage.getItem(manager.name));
+  const getLocalList = [];
+
+  const fromLocalList = {
+    name: manager.name,
+    list: getLocalList
+  }
+  if (getfromLocal != null) {
+    for(let i = 0; i < getfromLocal.length; i++) {
+      const localTask = this.currentManager.addTask(getfromLocal[i].text,getfromLocal[i].priority,this);
+      getLocalList.push(localTask)
+    }
+  }
+    this.fillByManagerList(fromLocalList);
+};
+App.prototype.SetLocalButtons = function(button) {
+  const buttonList = [];
+  const localButton = JSON.parse(localStorage.getItem("buttonsList"));
+  if (localButton != null) {
+    for (let i = 0; i < localButton.length; i++) {
+      buttonList.push(localButton[i]);
+    }
+  }
+  buttonList.push(button);
+  localStorage.setItem("buttonsList",JSON.stringify(buttonList));
+};
+App.prototype.getLocalButtons = function() {
+  const localButtons = JSON.parse(localStorage.getItem("buttonsList"));
+  if (localButtons != null) {
+    for(let j = 0; j < localButtons.length; j++) {
+      const newList = Dom.make('button', ['manager','list'], {
+        textContent: localButtons[j]
+      });
+      newList.dataset.id = localButtons[j];
+
+      Dom.appendTo(this.lists, newList);
+      Dom.appendTo(this.lists, this.addListButton);
+
+      const manager = new TaskManager(localButtons[j]);
+      this.managers.push(manager);
+      this.bindButtonEvent(newList);
+    }
+  }
+};
+App.prototype.fillByManagerList = function(manager) {
+    for ( let i = 0; i < manager.list.length; i++) {
+      this.AddToUl(manager.list[i].getElement())
+    }
+};
+App.prototype.AddToUl = function(task) {
+  Dom.appendTo(this.taskList.ul,task);
 };
 export default App
