@@ -5,5 +5,6 @@ module.exports = {
     'postcss-nested': {},
     //'cssnano': {},
     'postcss-custom-properties': {},
+    'postcss-css-variables': {},
   }
 }

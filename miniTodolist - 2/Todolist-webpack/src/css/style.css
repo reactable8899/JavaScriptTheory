@@ -1,5 +1,4 @@
 @import './bootstrap.min.css';
-
 body {
   margin: 0;
   padding: 0;
@@ -19,7 +18,6 @@ body {
     }
   }
 }
-
 .addList {
   display: block;
   width: 730px;
