@@ -14,8 +14,8 @@ const App = function() {
   this.addNewList();
   this.drawButton();
   this.setFirstList();
-  this.getfromLocal(this.managers[0]);
-  this.getLocalButtons();
+  this.getFromStorage(this.managers[0]);
+  this.getStorageButtons();
 };
 
 App.prototype.prepare = function() {
@@ -131,7 +131,7 @@ App.prototype.addNewList = function() {
       self.managers.push(manager);
       self.bindButtonEvent(newList);
       newListInput.value = '';
-      self.SetLocalButtons(listName);
+      self.SetStorageButtons(listName);
     }
   })
 };
@@ -166,7 +166,7 @@ App.prototype.drawButton = function() {
       self.AddToUl(task.getElement());
       self.inputValue.value = '';
       self.inputValue.focus();
-      self.setToLocal(self.currentManager);
+      self.setToStorage(self.currentManager);
     }
 
   });
@@ -186,7 +186,7 @@ App.prototype.tasksCountDec = function(event) {
   for (let i = 0; i < this.currentManager.list.length; i++) {
     if (this.currentManager.list[i].name === listText) {
       this.currentManager.list.splice(i, 1);
-      this.setToLocal(this.currentManager);
+      this.setToStorage(this.currentManager);
     }
   }
 
@@ -214,11 +214,11 @@ App.prototype.bindButtonEvent = function(button) {
 
       }
     }
-    self.getfromLocal(self.currentManager);
+    self.getFromStorage(self.currentManager);
 
   });
 };
-App.prototype.setToLocal = function(manager) {
+App.prototype.setToStorage = function(manager) {
   if (manager != undefined) {
     const setLocalList = [];
     for(let i = 0; i < manager.list.length; i++) {
@@ -232,7 +232,7 @@ App.prototype.setToLocal = function(manager) {
     localStorage.setItem(manager.name,JSON.stringify(setLocalList))
   }
 };
-App.prototype.getfromLocal = function(manager) {
+App.prototype.getFromStorage = function(manager) {
 
   const getfromLocal = JSON.parse(localStorage.getItem(manager.name));
   const getLocalList = [];
@@ -249,7 +249,7 @@ App.prototype.getfromLocal = function(manager) {
   }
     this.fillByManagerList(fromLocalList);
 };
-App.prototype.SetLocalButtons = function(button) {
+App.prototype.SetStorageButtons = function(button) {
   const buttonList = [];
   const localButton = JSON.parse(localStorage.getItem("buttonsList"));
   if (localButton != null) {
@@ -260,7 +260,7 @@ App.prototype.SetLocalButtons = function(button) {
   buttonList.push(button);
   localStorage.setItem("buttonsList",JSON.stringify(buttonList));
 };
-App.prototype.getLocalButtons = function() {
+App.prototype.getStorageButtons = function() {
   const localButtons = JSON.parse(localStorage.getItem("buttonsList"));
   if (localButtons != null) {
     for(let j = 0; j < localButtons.length; j++) {

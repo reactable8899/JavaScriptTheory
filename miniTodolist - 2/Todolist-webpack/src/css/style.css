@@ -1,6 +1,5 @@
-:root {
-  --bgblack: black;
-}
+@import './bootstrap.min.css';
+
 body {
   margin: 0;
   padding: 0;
@@ -10,7 +9,7 @@ body {
     margin: auto;
     width: 1100px;
     height: 600px;
-    background-color: var(--bgblack);
+    background-color: #EDEEEF;
 
     &_show {
       display: block;
@@ -19,23 +18,7 @@ body {
       margin-bottom: 40px;
     }
   }
-
-  a {
-    color: black;
-  }
 }
-/* .main__block {
-  margin: auto;
-  width: 1100px;
-  height: 600px;
-  background-color: #EDEEEF;
-} */
-/* .main__block_show {
-  display: block;
-  width: 730px;
-  margin: 0 auto;
-  margin-bottom: 40px;
-} */
 
 .addList {
   display: block;
@@ -71,9 +54,10 @@ body {
   background-color: #7F8186;
   border-radius: 10px;
   outline: none;
-}
-.button:hover {
+
+  &:hover {
   background-color: #9DA5B4;
+  }
 }
 .addButton:focus {
   outline: none;
@@ -82,25 +66,27 @@ body {
   margin: 0;
   padding: 0;
 }
-.list__task {
-  position: relative;
-  margin-top: 20px;
-  padding-bottom: 10px;
-  list-style-type: none;
-  padding-left: 30px;
-  font-size: 22px;
-  border-bottom: 2px solid #eee;
-}
-.list__button {
-  float: right;
-  outline: none;
-  border: none;
-  font-size: 28px;
-  background-color: white;
-  margin-right: 20px;
-}
-.list__button:focus {
-  outline: none
+.list {
+  &__task {
+    position: relative;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    list-style-type: none;
+    padding-left: 30px;
+    font-size: 22px;
+    border-bottom: 2px solid #eee;
+  }
+  &__button {
+    float: right;
+    outline: none;
+    border: none;
+    font-size: 28px;
+    background-color: white;
+    margin-right: 20px;
+  }
+  &__button:focus {
+    outline: none
+  }
 }
 .taskList {
   margin-top: 40px;
@@ -146,7 +132,6 @@ body {
   font-size: 14px;
   color: white;
 }
-
 .changeDisplayBlock {
   background-color: #ccc;
   color: white;
@@ -179,10 +164,15 @@ body {
   color: #7F8186;
   box-shadow: 5px 0px 8px -3px rgba(0,0,0,0.25);
 
-}
-.list:hover {
+  &:hover {
   background-color: #55BDE3;
   color: white;
+  }
+  &:focus {
+    outline: none;
+    color: black;
+    background-color: #EDEEEF;
+  }
 }
 .listAdd {
   margin-left: 3px;
@@ -192,12 +182,11 @@ body {
   font-size: 26px;
   color: black;
   margin-bottom: 0;
-}
-.listAdd {
   cursor: pointer;
-}
-.listAdd:focus {
+
+  &:focus {
   outline: none;
+  }
 }
 .newListInput {
   border: none;
@@ -208,9 +197,4 @@ body {
   color: #757575;
   border-bottom: 2px solid #EDEEEF;
   outline: none;
-}
-.list:focus {
-  outline: none;
-  color: black;
-  background-color: #EDEEEF;
 }
