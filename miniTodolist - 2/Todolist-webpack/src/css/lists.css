@@ -1,0 +1,44 @@
+.lists {
+  padding-top: 0;
+  display: block;
+  margin-left: 100px;
+  margin-top: 0;
+}
+.list {
+  border-radius: 0 5px 0 0;
+  margin-right: 1px;
+  padding: 5px;
+  background-color: white;
+  border: none;
+  font-size: 18px;
+  width: 100px;
+  cursor: pointer;
+  border-bottom: 1px solid silver;
+  color: #7F8186;
+  box-shadow: 5px 0px 8px -3px rgba(0,0,0,0.25);
+
+  &:hover {
+  background-color: #55BDE3;
+  color: white;
+  }
+  
+  &:focus {
+    outline: none;
+    color: black;
+    background-color: #EDEEEF;
+  }
+}
+.listAdd {
+  margin-left: 3px;
+  border-radius: 25px;
+  border: none;
+  background-color: #EDEEEF;
+  font-size: 26px;
+  color: black;
+  margin-bottom: 0;
+  cursor: pointer;
+
+  &:focus {
+  outline: none;
+  }
+}
