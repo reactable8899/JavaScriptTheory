@@ -1,1 +1,159 @@
-!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.TodoList=e():t.TodoList=e()}(window,(function(){return function(t){var e={};function n(o){if(e[o])return e[o].exports;var s=e[o]={i:o,l:!1,exports:{}};return t[o].call(s.exports,s,s.exports,n),s.l=!0,s.exports}return n.m=t,n.c=e,n.d=function(t,e,o){n.o(t,e)||Object.defineProperty(t,e,{enumerable:!0,get:o})},n.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},n.t=function(t,e){if(1&e&&(t=n(t)),8&e)return t;if(4&e&&"object"==typeof t&&t&&t.__esModule)return t;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:t}),2&e&&"string"!=typeof t)for(var s in t)n.d(o,s,function(e){return t[e]}.bind(null,s));return o},n.n=function(t){var e=t&&t.__esModule?function(){return t.default}:function(){return t};return n.d(e,"a",e),e},n.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},n.p="",n(n.s=1)}([function(t,e,n){},function(t,e,n){"use strict";n.r(e);const o=function(){};o.prototype.make=function(t,e=[],n={}){const o=document.createElement(t);for(let t=0;t<e.length;t++){const n=e[t];o.classList.add(n)}for(let t in n)o[t]=n[t];return o},o.prototype.find=function(t,e){return t.querySelector(e)},o.prototype.findAll=function(t,e){return t.querySelectorAll(e)},o.prototype.appendTo=function(t,e){t.append(e)};var s=new o;const i=function(t,e,n){this.name=t,this.priority=e,this.app=n,this.dom={div:null};let o=0;const a=s.make("div",["list__task"]),r=s.make("span");r.classList.add=i.prototype.getPriority(e,r);const l=s.make("span",["listText"],{textContent:t}),d=s.make("button",["list__button"],{textContent:"..."}),u=s.make("button",["deleteSpan"],{textContent:"Удалить"});d.addEventListener("click",(function(t){0===o?(a.appendChild(u),u.classList.add("changeDisplayBlock"),u.classList.remove("changeDisplayNone"),o++):(u.classList.add("changeDisplayNone"),u.classList.remove("changeDisplayBlock"),o--)})),u.addEventListener("click",(function(){const t=event.target.parentNode;n.tasksCountDec(event.target.parentNode),n.setToStorage(this.currentManager),t.remove()})),a.appendChild(r),a.appendChild(l),a.appendChild(d),this.dom.div=a};i.prototype.getElement=function(){return this.dom.div},i.prototype.getPriority=function(t,e){"High"===t?(e.textContent=t,e.classList.add("priorityClassHigth")):"Medium"===t?(e.textContent=t,e.classList.add("priorityClassMedium")):(e.textContent=t,e.classList.add("priorityClassLow"))};var a=i;const r=function(t){this.name=t,this.list=[]};r.prototype.addTask=function(t,e,n){const o=new a(t,e,n);return this.list.push(o),o};var l=r;n(0);const d=function(){this.managers=[],this.currentManager=null,this.list={counter:0},this.prepare(),this.addNewList(),this.drawButton(),this.setFirstList(),this.getFromStorage(this.managers[0]),this.getStorageButtons()};d.prototype.prepare=function(){const t=s.find(document,".main__block");s.find(document,".main__block_show");this.lists=s.make("div",["lists"]),this.lists.span=s.make("span"),this.lists.TodayButton=s.make("button",["manager","list"],{textContent:"Cегодня"}),this.lists.TodayButton.dataset.id="today",this.addListButton=s.make("button",["listAdd"],{textContent:"+"}),this.addTasksButton=s.make("button",["button"],{textContent:"Add Task"}),this.addListButton.dataset.toggle="modal",this.addListButton.dataset.target="#myModal",this.addBlockInput=s.make("input",["input"]),this.addBlockInput.placeholder="Add Task...",this.addBlockSelect=s.make("select",["priority"]),this.addBlockOptionHigth=s.make("option",[],{textContent:"High"}),this.addBlockOptionMedium=s.make("option",[],{textContent:"Medium"}),this.addBlockOptionLow=s.make("option",[],{textContent:"Low"}),this.taskList=s.make("div",["taskList"]),this.taskList.ul=s.make("ul",["ulClass"]),this.taskList.Counter=s.make("span",["taskCount"],{textContent:"Tasks: "+this.list.counter}),s.appendTo(this.addBlockSelect,this.addBlockOptionHigth),s.appendTo(this.addBlockSelect,this.addBlockOptionMedium),s.appendTo(this.addBlockSelect,this.addBlockOptionLow),s.appendTo(this.taskList,this.addBlockInput),s.appendTo(this.taskList,this.addBlockSelect),s.appendTo(this.taskList,this.addTasksButton),s.appendTo(this.taskList,this.taskList.ul),s.appendTo(this.lists,this.lists.TodayButton),s.appendTo(this.lists,this.addListButton),s.appendTo(t,this.lists),s.appendTo(t,this.taskList),s.appendTo(t,this.taskList.Counter);let e=JSON.parse(localStorage.getItem("counter"));null!=e&&(this.taskList.Counter.style.display="block",this.taskList.Counter.textContent="Tasks: "+e)},d.prototype.addNewList=function(){const t=this;s.find(document,".listAdd").addEventListener("click",(function(){const e=s.find(document,".newListInput");s.make("button",["listAdd"],{textContent:"+"});document.querySelector(".newListInput").addEventListener("keydown",(function(t){13===t.keyCode&&(n(),e.value="")}));function n(){const n=e.value;if(""===n)return;const o=s.make("button",["manager","list"],{textContent:n});o.dataset.id=n,s.appendTo(t.lists,o),s.appendTo(t.lists,t.addListButton);const i=new l(n);t.managers.push(i),t.bindButtonEvent(o),e.value="",t.SetStorageButtons(n)}s.find(document,"#addList").addEventListener("click",n)}))},d.prototype.drawButton=function(){const t=s.find(document,".button");this.taskList.ul=s.find(document,".ulClass");const e=this,n=s.findAll(document,".manager");for(let t=0;t<n.length;t++){const e=n[t],o=new l(e.dataset.id);this.managers.push(o),this.bindButtonEvent(e)}t.addEventListener("click",(function(t){const n=s.find(document,".priority").value;if(e.tasksCountInc(),e.taskList.Counter.style.display="block",e.inputValue=s.find(document,".input"),""!=e.inputValue.value){const t=e.inputValue.value,o=e.currentManager.addTask(t,n,e);e.AddToUl(o.getElement()),e.inputValue.value="",e.inputValue.focus(),e.setToStorage(e.currentManager)}}))},d.prototype.tasksCountInc=function(){let t=JSON.parse(localStorage.getItem("counter"));t++,localStorage.setItem("counter",JSON.stringify(t)),this.taskList.Counter.textContent="Tasks: "+t},d.prototype.tasksCountDec=function(t){const e=s.find(t,".listText").textContent;for(let t=0;t<this.currentManager.list.length;t++)this.currentManager.list[t].name===e&&(this.currentManager.list.splice(t,1),this.setToStorage(this.currentManager));let n=JSON.parse(localStorage.getItem("counter"));n--,localStorage.setItem("counter",JSON.stringify(n)),this.taskList.Counter.textContent="Tasks: "+n},d.prototype.setFirstList=function(){this.currentManager=this.managers[0]},d.prototype.bindButtonEvent=function(t){const e=this;t.addEventListener("click",(function(t){const n=t.target.dataset.id;e.taskList.ul.innerHTML="";for(let t=0;t<e.managers.length;t++)e.managers[t].name===n&&(e.currentList=n,e.currentManager=e.managers[t]);e.getFromStorage(e.currentManager)}))},d.prototype.setToStorage=function(t){if(null!=t){const e=[];for(let n=0;n<t.list.length;n++){const o={text:t.list[n].name,priority:t.list[n].priority};e.push(o)}localStorage.setItem(t.name,JSON.stringify(e))}},d.prototype.getFromStorage=function(t){const e=JSON.parse(localStorage.getItem(t.name)),n=[],o={name:t.name,list:n};if(null!=e)for(let t=0;t<e.length;t++){const o=this.currentManager.addTask(e[t].text,e[t].priority,this);n.push(o)}this.fillByManagerList(o)},d.prototype.SetStorageButtons=function(t){const e=[],n=JSON.parse(localStorage.getItem("buttonsList"));if(null!=n)for(let t=0;t<n.length;t++)e.push(n[t]);e.push(t),localStorage.setItem("buttonsList",JSON.stringify(e))},d.prototype.getStorageButtons=function(){const t=JSON.parse(localStorage.getItem("buttonsList"));if(null!=t)for(let e=0;e<t.length;e++){const n=s.make("button",["manager","list"],{textContent:t[e]});n.dataset.id=t[e],s.appendTo(this.lists,n),s.appendTo(this.lists,this.addListButton);const o=new l(t[e]);this.managers.push(o),this.bindButtonEvent(n)}},d.prototype.fillByManagerList=function(t){for(let e=0;e<t.list.length;e++)this.AddToUl(t.list[e].getElement())},d.prototype.AddToUl=function(t){s.appendTo(this.taskList.ul,t)};e.default=d}]).default}));
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["TodoList"] = factory();
+	else
+		root["TodoList"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./index.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./css/style.css":
+/*!***********************!*\
+  !*** ./css/style.css ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack://TodoList/./css/style.css?");
+
+/***/ }),
+
+/***/ "./index.js":
+/*!******************!*\
+  !*** ./index.js ***!
+  \******************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_taskManager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/taskManager */ \"./modules/taskManager.js\");\n/* harmony import */ var _modules_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/dom */ \"./modules/dom.js\");\n\n\n\n__webpack_require__(/*! ./css/style.css */ \"./css/style.css\");\n\nvar App = function App() {\n  this.managers = [];\n  this.currentManager = null;\n  this.list = {\n    counter: 0\n  };\n  this.prepare();\n  this.addNewList();\n  this.drawButton();\n  this.setFirstList();\n  this.getFromStorage(this.managers[0]);\n  this.getStorageButtons();\n};\n\nApp.prototype.prepare = function () {\n  var mainBlock = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '.main__block');\n  var mainMenu = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '.main__block_show');\n  this.lists = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('div', ['lists']);\n  this.lists.span = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('span');\n  this.lists.TodayButton = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('button', ['manager', 'list'], {\n    textContent: 'Cегодня'\n  });\n  this.lists.TodayButton.dataset.id = 'today';\n  this.addListButton = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('button', ['listAdd'], {\n    textContent: '+'\n  });\n  this.addTasksButton = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('button', ['button'], {\n    textContent: 'Add Task'\n  });\n  this.addListButton.dataset.toggle = \"modal\";\n  this.addListButton.dataset.target = \"#myModal\";\n  this.addBlockInput = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('input', ['input']);\n  this.addBlockInput.placeholder = 'Add Task...';\n  this.addBlockSelect = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('select', ['priority']);\n  this.addBlockOptionHigth = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('option', [], {\n    textContent: \"High\"\n  });\n  this.addBlockOptionMedium = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('option', [], {\n    textContent: \"Medium\"\n  });\n  this.addBlockOptionLow = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('option', [], {\n    textContent: \"Low\"\n  });\n  this.taskList = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('div', ['taskList']);\n  this.taskList.ul = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('ul', ['ulClass']);\n  this.taskList.Counter = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('span', ['taskCount'], {\n    textContent: \"Tasks: \".concat(this.list.counter)\n  });\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.addBlockSelect, this.addBlockOptionHigth);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.addBlockSelect, this.addBlockOptionMedium);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.addBlockSelect, this.addBlockOptionLow);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.taskList, this.addBlockInput);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.taskList, this.addBlockSelect);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.taskList, this.addTasksButton);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.taskList, this.taskList.ul);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.lists, this.lists.TodayButton);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.lists, this.addListButton);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(mainBlock, this.lists);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(mainBlock, this.taskList);\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(mainBlock, this.taskList.Counter);\n  var counter = JSON.parse(localStorage.getItem('counter'));\n\n  if (counter != null) {\n    this.taskList.Counter.style.display = 'block';\n    this.taskList.Counter.textContent = \"Tasks: \".concat(counter);\n  }\n};\n\nApp.prototype.addNewList = function () {\n  var self = this;\n  var listAdd = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '.listAdd');\n  listAdd.addEventListener('click', function () {\n    var newListInput = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '.newListInput');\n    var newListButton = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('button', ['listAdd'], {\n      textContent: '+'\n    });\n    document.querySelector('.newListInput').addEventListener('keydown', function (e) {\n      if (e.keyCode === 13) {\n        createNewList();\n        newListInput.value = '';\n      }\n    });\n    var addList = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '#addList');\n    addList.addEventListener('click', createNewList);\n\n    function createNewList() {\n      var listName = newListInput.value;\n\n      if (listName === '') {\n        return;\n      }\n\n      var newList = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('button', ['manager', 'list'], {\n        textContent: listName\n      });\n      newList.dataset.id = listName;\n      _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(self.lists, newList);\n      _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(self.lists, self.addListButton);\n      var manager = new _modules_taskManager__WEBPACK_IMPORTED_MODULE_0__[\"default\"](listName);\n      self.managers.push(manager);\n      self.bindButtonEvent(newList);\n      newListInput.value = '';\n      self.SetStorageButtons(listName);\n    }\n  });\n};\n\nApp.prototype.drawButton = function () {\n  var addtaskButton = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '.button');\n  this.taskList.ul = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '.ulClass');\n  var self = this;\n  var buttons = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].findAll(document, '.manager');\n\n  for (var i = 0; i < buttons.length; i++) {\n    var button = buttons[i];\n    var manager = new _modules_taskManager__WEBPACK_IMPORTED_MODULE_0__[\"default\"](button.dataset.id);\n    this.managers.push(manager);\n    this.bindButtonEvent(button);\n  }\n\n  addtaskButton.addEventListener('click', function (event) {\n    var priority = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '.priority').value;\n    self.tasksCountInc();\n    self.taskList.Counter.style.display = 'block';\n    self.inputValue = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(document, '.input');\n\n    if (self.inputValue.value != '') {\n      var name = self.inputValue.value;\n      var task = self.currentManager.addTask(name, priority, self);\n      self.AddToUl(task.getElement());\n      self.inputValue.value = '';\n      self.inputValue.focus();\n      self.setToStorage(self.currentManager);\n    }\n  });\n};\n\nApp.prototype.tasksCountInc = function () {\n  var counter = JSON.parse(localStorage.getItem('counter'));\n  counter++;\n  localStorage.setItem('counter', JSON.stringify(counter));\n  this.taskList.Counter.textContent = \"Tasks: \".concat(counter);\n};\n\nApp.prototype.tasksCountDec = function (event) {\n  var listText = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].find(event, '.listText').textContent;\n\n  for (var i = 0; i < this.currentManager.list.length; i++) {\n    if (this.currentManager.list[i].name === listText) {\n      this.currentManager.list.splice(i, 1);\n      this.setToStorage(this.currentManager);\n    }\n  }\n\n  var counter = JSON.parse(localStorage.getItem('counter'));\n  counter--;\n  localStorage.setItem('counter', JSON.stringify(counter));\n  this.taskList.Counter.textContent = \"Tasks: \".concat(counter);\n};\n\nApp.prototype.setFirstList = function () {\n  this.currentManager = this.managers[0];\n};\n\nApp.prototype.bindButtonEvent = function (button) {\n  var self = this;\n  button.addEventListener('click', function (event) {\n    var clickedButton = event.target;\n    var id = clickedButton.dataset.id;\n    self.taskList.ul.innerHTML = '';\n\n    for (var i = 0; i < self.managers.length; i++) {\n      if (self.managers[i].name === id) {\n        self.currentList = id;\n        self.currentManager = self.managers[i];\n      }\n    }\n\n    self.getFromStorage(self.currentManager);\n  });\n};\n\nApp.prototype.setToStorage = function (manager) {\n  if (manager != undefined) {\n    var setLocalList = [];\n\n    for (var i = 0; i < manager.list.length; i++) {\n      var localObj = {\n        text: manager.list[i].name,\n        priority: manager.list[i].priority\n      };\n      setLocalList.push(localObj);\n    }\n\n    localStorage.setItem(manager.name, JSON.stringify(setLocalList));\n  }\n};\n\nApp.prototype.getFromStorage = function (manager) {\n  var getfromLocal = JSON.parse(localStorage.getItem(manager.name));\n  var getLocalList = [];\n  var fromLocalList = {\n    name: manager.name,\n    list: getLocalList\n  };\n\n  if (getfromLocal != null) {\n    for (var i = 0; i < getfromLocal.length; i++) {\n      var localTask = this.currentManager.addTask(getfromLocal[i].text, getfromLocal[i].priority, this);\n      getLocalList.push(localTask);\n    }\n  }\n\n  this.fillByManagerList(fromLocalList);\n};\n\nApp.prototype.SetStorageButtons = function (button) {\n  var buttonList = [];\n  var localButton = JSON.parse(localStorage.getItem(\"buttonsList\"));\n\n  if (localButton != null) {\n    for (var i = 0; i < localButton.length; i++) {\n      buttonList.push(localButton[i]);\n    }\n  }\n\n  buttonList.push(button);\n  localStorage.setItem(\"buttonsList\", JSON.stringify(buttonList));\n};\n\nApp.prototype.getStorageButtons = function () {\n  var localButtons = JSON.parse(localStorage.getItem(\"buttonsList\"));\n\n  if (localButtons != null) {\n    for (var j = 0; j < localButtons.length; j++) {\n      var newList = _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].make('button', ['manager', 'list'], {\n        textContent: localButtons[j]\n      });\n      newList.dataset.id = localButtons[j];\n      _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.lists, newList);\n      _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.lists, this.addListButton);\n      var manager = new _modules_taskManager__WEBPACK_IMPORTED_MODULE_0__[\"default\"](localButtons[j]);\n      this.managers.push(manager);\n      this.bindButtonEvent(newList);\n    }\n  }\n};\n\nApp.prototype.fillByManagerList = function (manager) {\n  for (var i = 0; i < manager.list.length; i++) {\n    this.AddToUl(manager.list[i].getElement());\n  }\n};\n\nApp.prototype.AddToUl = function (task) {\n  _modules_dom__WEBPACK_IMPORTED_MODULE_1__[\"default\"].appendTo(this.taskList.ul, task);\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (App);\n\n//# sourceURL=webpack://TodoList/./index.js?");
+
+/***/ }),
+
+/***/ "./modules/dom.js":
+/*!************************!*\
+  !*** ./modules/dom.js ***!
+  \************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nvar Dom = function Dom() {};\n\nDom.prototype.make = function (element) {\n  var classList = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];\n  var properties = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};\n  var el = document.createElement(element);\n\n  for (var i = 0; i < classList.length; i++) {\n    var className = classList[i];\n    el.classList.add(className);\n  }\n\n  for (var prop in properties) {\n    el[prop] = properties[prop];\n  }\n\n  return el;\n};\n\nDom.prototype.find = function (element, selector) {\n  return element.querySelector(selector);\n};\n\nDom.prototype.findAll = function (element, selector) {\n  return element.querySelectorAll(selector);\n};\n\nDom.prototype.appendTo = function (element, child) {\n  element.append(child);\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (new Dom());\n\n//# sourceURL=webpack://TodoList/./modules/dom.js?");
+
+/***/ }),
+
+/***/ "./modules/task.js":
+/*!*************************!*\
+  !*** ./modules/task.js ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ \"./modules/dom.js\");\n\n\nvar Task = function Task(name, priority, app) {\n  this.name = name;\n  this.priority = priority;\n  this.app = app;\n  this.dom = {\n    div: null\n  };\n  var n = 0;\n  var self = this;\n  var div = _dom__WEBPACK_IMPORTED_MODULE_0__[\"default\"].make('div', ['list__task']);\n  var span = _dom__WEBPACK_IMPORTED_MODULE_0__[\"default\"].make('span');\n  span.classList.add = Task.prototype.getPriority(priority, span);\n  var spanText = _dom__WEBPACK_IMPORTED_MODULE_0__[\"default\"].make('span', ['listText'], {\n    textContent: name\n  });\n  var buttonDelete = _dom__WEBPACK_IMPORTED_MODULE_0__[\"default\"].make('button', ['list__button'], {\n    textContent: '...'\n  });\n  var deleteSpan = _dom__WEBPACK_IMPORTED_MODULE_0__[\"default\"].make('button', ['deleteSpan'], {\n    textContent: 'Удалить'\n  });\n  buttonDelete.addEventListener('click', function (event) {\n    if (n === 0) {\n      div.appendChild(deleteSpan);\n      deleteSpan.classList.add('changeDisplayBlock');\n      deleteSpan.classList.remove('changeDisplayNone');\n      n++;\n    } else {\n      deleteSpan.classList.add('changeDisplayNone');\n      deleteSpan.classList.remove('changeDisplayBlock');\n      n--;\n    }\n  });\n  deleteSpan.addEventListener('click', function () {\n    var div = event.target.parentNode;\n    app.tasksCountDec(event.target.parentNode);\n    app.setToStorage(this.currentManager);\n    div.remove();\n  });\n  div.appendChild(span);\n  div.appendChild(spanText);\n  div.appendChild(buttonDelete);\n  this.dom.div = div;\n};\n\nTask.prototype.getElement = function () {\n  return this.dom.div;\n};\n\nTask.prototype.getPriority = function (prioritys, span) {\n  if (prioritys === 'High') {\n    span.textContent = prioritys;\n    span.classList.add('priorityClassHigth');\n  } else {\n    if (prioritys === 'Medium') {\n      span.textContent = prioritys;\n      span.classList.add('priorityClassMedium');\n    } else {\n      span.textContent = prioritys;\n      span.classList.add('priorityClassLow');\n    }\n  }\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Task);\n\n//# sourceURL=webpack://TodoList/./modules/task.js?");
+
+/***/ }),
+
+/***/ "./modules/taskManager.js":
+/*!********************************!*\
+  !*** ./modules/taskManager.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _task__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./task */ \"./modules/task.js\");\n\n\nvar TaskManager = function TaskManager(name) {\n  this.name = name;\n  this.list = [];\n};\n\nTaskManager.prototype.addTask = function (name, priority, app) {\n  var task = new _task__WEBPACK_IMPORTED_MODULE_0__[\"default\"](name, priority, app);\n  this.list.push(task);\n  return task;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (TaskManager);\n\n//# sourceURL=webpack://TodoList/./modules/taskManager.js?");
+
+/***/ })
+
+/******/ })["default"];
+});

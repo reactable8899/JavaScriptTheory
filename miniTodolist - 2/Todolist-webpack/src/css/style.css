@@ -88,3 +88,13 @@ body {
 .changeDisplayNone {
   display: none;
 }
+.newListInput {
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  width: 400px;
+  margin-left: 5px;
+  color: #757575;
+  border-bottom: 2px solid #EDEEEF;
+  outline: none;
+}
