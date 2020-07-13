@@ -35,7 +35,12 @@
     margin-right: 20px;
   }.list__button:focus {
     outline: none
-  }.lists {
+  }.editButton {
+  float: right;
+}.editInput {
+  border: none;
+  border-bottom: 1px solid #eee;
+}.lists {
   padding-top: 0;
   display: block;
   margin-left: 100px;

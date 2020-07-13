@@ -9,6 +9,7 @@ const Task = function(name, priority,app) {
     div: null
   };
   let n = 0;
+  let k = 0;
   const self = this;
 
   const div = Dom.make('div',['list__task']);
@@ -19,14 +20,19 @@ const Task = function(name, priority,app) {
   const spanText = Dom.make('span', ['listText'], {
     textContent: name
   });
-  const buttonDelete = Dom.make('button', ['list__button'], {
+  const deleteButton = Dom.make('button', ['list__button'], {
     textContent: '...'
   });
   const deleteSpan = Dom.make('button', ['deleteSpan'], {
     textContent: 'Удалить'
   });
-
-  buttonDelete.addEventListener('click', function(event) {
+  const editButton = Dom.make('button', ['editButton'], {
+    textContent: 'edit'
+  })
+  const confirmEdit = Dom.make('button', ['confirmEdit'], {
+    textContent: '+'
+  })
+  deleteButton.addEventListener('click', function(event) {
     if (n === 0) {
       div.appendChild(deleteSpan);
       deleteSpan.classList.add('changeDisplayBlock');
@@ -38,6 +44,45 @@ const Task = function(name, priority,app) {
       n--;
     }
   });
+  editButton.addEventListener('click', function(event) {
+    const takeNode = event.target.parentNode;
+    const editText = takeNode.querySelector('.listText');
+    if (k == 0) {
+      k++;
+      const editInput = Dom.make('input', ['editInput'], {
+        value: editText.textContent
+      })
+
+      div.appendChild(editInput);
+      div.appendChild(confirmEdit);
+
+      editText.style.display = 'none';
+
+    } else {
+      const deleteteEdit = takeNode.querySelector('.editInput');
+
+      editText.style.display = 'inline-block';
+
+      deleteteEdit.remove();
+      confirmEdit.remove();
+      k--;
+    }
+
+    confirmEdit.addEventListener('click', function() {
+
+      const editInput = takeNode.querySelector('.editInput');
+      const spanText = Dom.make('span', ['listText'], {
+        textContent: editInput.value
+      });
+
+      k--;
+      div.appendChild(spanText);
+      editText.remove();
+      editInput.remove();
+      confirmEdit.remove();
+
+    })
+  })
 
   deleteSpan.addEventListener('click', function() {
     const div = event.target.parentNode;
@@ -49,7 +94,8 @@ const Task = function(name, priority,app) {
 
   div.appendChild(span);
   div.appendChild(spanText);
-  div.appendChild(buttonDelete);
+  div.appendChild(deleteButton);
+  div.appendChild(editButton);
 
   this.dom.div = div;
 };

@@ -39,3 +39,10 @@
     outline: none
   }
 }
+.editButton {
+  float: right;
+}
+.editInput {
+  border: none;
+  border-bottom: 1px solid #eee;
+}
