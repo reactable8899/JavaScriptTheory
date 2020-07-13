@@ -1,5 +1,6 @@
 import TaskManager from "./modules/taskManager";
 import Dom from "./modules/dom";
+import Storage from "./modules/localStorage";
 require('./css/style.css');
 const App = function() {
 
@@ -151,25 +152,34 @@ App.prototype.drawButton = function() {
     this.bindButtonEvent(button);
   }
 
-  addtaskButton.addEventListener('click', function(event) {
+  document.querySelector('.input').addEventListener('keydown', function(e) {
+    if (e.keyCode === 13) {
+      createNewtask();
+    }
+  });
 
+  addtaskButton.addEventListener('click', createNewtask);
+
+  function createNewtask() {
     const priority = Dom.find(document, '.priority').value;
 
     self.tasksCountInc();
     self.taskList.Counter.style.display = 'block';
 
     self.inputValue = Dom.find(document, '.input');
+
     if (self.inputValue.value != '') {
+
       const name = self.inputValue.value;
       const task = self.currentManager.addTask(name,priority,self);
 
       self.AddToUl(task.getElement());
       self.inputValue.value = '';
       self.inputValue.focus();
-      self.setToStorage(self.currentManager);
+      Storage.setToStorage(self.currentManager);
     }
+  }
 
-  });
 };
 
 App.prototype.tasksCountInc = function() {
@@ -186,12 +196,14 @@ App.prototype.tasksCountDec = function(event) {
   for (let i = 0; i < this.currentManager.list.length; i++) {
     if (this.currentManager.list[i].name === listText) {
       this.currentManager.list.splice(i, 1);
-      this.setToStorage(this.currentManager);
+      Storage.setToStorage(this.currentManager);
     }
   }
 
   let counter = JSON.parse(localStorage.getItem('counter'));
-  counter--;
+  if (counter > 0) {
+    counter--;
+  }
   localStorage.setItem('counter',JSON.stringify(counter));
   this.taskList.Counter.textContent = `Tasks: ${counter}`;
 };
@@ -219,64 +231,16 @@ App.prototype.bindButtonEvent = function(button) {
   });
 };
 App.prototype.setToStorage = function(manager) {
-  if (manager != undefined) {
-    const setLocalList = [];
-    for(let i = 0; i < manager.list.length; i++) {
-      const localObj = {
-        text: manager.list[i].name,
-        priority: manager.list[i].priority
-      }
-      setLocalList.push(localObj);
-    }
-
-    localStorage.setItem(manager.name,JSON.stringify(setLocalList))
-  }
+  Storage.setToStorage(manager);
 };
 App.prototype.getFromStorage = function(manager) {
-
-  const getfromLocal = JSON.parse(localStorage.getItem(manager.name));
-  const getLocalList = [];
-
-  const fromLocalList = {
-    name: manager.name,
-    list: getLocalList
-  }
-  if (getfromLocal != null) {
-    for(let i = 0; i < getfromLocal.length; i++) {
-      const localTask = this.currentManager.addTask(getfromLocal[i].text,getfromLocal[i].priority,this);
-      getLocalList.push(localTask)
-    }
-  }
-    this.fillByManagerList(fromLocalList);
+  Storage.getFromStorage(manager,this)
 };
 App.prototype.SetStorageButtons = function(button) {
-  const buttonList = [];
-  const localButton = JSON.parse(localStorage.getItem("buttonsList"));
-  if (localButton != null) {
-    for (let i = 0; i < localButton.length; i++) {
-      buttonList.push(localButton[i]);
-    }
-  }
-  buttonList.push(button);
-  localStorage.setItem("buttonsList",JSON.stringify(buttonList));
+  Storage.SetStorageButtons(button);
 };
 App.prototype.getStorageButtons = function() {
-  const localButtons = JSON.parse(localStorage.getItem("buttonsList"));
-  if (localButtons != null) {
-    for(let j = 0; j < localButtons.length; j++) {
-      const newList = Dom.make('button', ['manager','list'], {
-        textContent: localButtons[j]
-      });
-      newList.dataset.id = localButtons[j];
-
-      Dom.appendTo(this.lists, newList);
-      Dom.appendTo(this.lists, this.addListButton);
-
-      const manager = new TaskManager(localButtons[j]);
-      this.managers.push(manager);
-      this.bindButtonEvent(newList);
-    }
-  }
+  Storage.getStorageButtons(this)
 };
 App.prototype.fillByManagerList = function(manager) {
     for ( let i = 0; i < manager.list.length; i++) {

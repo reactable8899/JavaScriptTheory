@@ -1,4 +1,5 @@
 import Dom from "./dom";
+import Storage from "./localStorage";
 const Task = function(name, priority,app) {
 
   this.name = name;
@@ -45,7 +46,7 @@ const Task = function(name, priority,app) {
     const div = event.target.parentNode;
 
     app.tasksCountDec(event.target.parentNode);
-    app.setToStorage(this.currentManager);
+    Storage.setToStorage(this.currentManager);
     div.remove();
   });
 
@@ -79,7 +80,6 @@ const Task = function(name, priority,app) {
   div.appendChild(span);
   div.appendChild(spanText);
   div.appendChild(deleteButton);
-  //editButton.appendChild(editPic);
   div.appendChild(editButton);
 
   this.dom.div = div;
