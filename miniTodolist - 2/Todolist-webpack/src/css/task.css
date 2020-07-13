@@ -39,10 +39,21 @@
     outline: none
   }
 }
-.editButton {
-  float: right;
-}
 .editInput {
   border: none;
   border-bottom: 1px solid #eee;
+}
+.editButton {
+  float: right;
+  cursor: pointer;
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+}
+.delButton {
+  float: right;
+  cursor: pointer;
+  margin-right: 50px;
+  width: 30px;
+  height: 30px;
 }

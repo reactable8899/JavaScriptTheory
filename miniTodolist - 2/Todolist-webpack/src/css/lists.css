@@ -21,7 +21,7 @@
   background-color: #55BDE3;
   color: white;
   }
-  
+
   &:focus {
     outline: none;
     color: black;

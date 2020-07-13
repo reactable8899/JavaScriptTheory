@@ -20,18 +20,15 @@ const Task = function(name, priority,app) {
   const spanText = Dom.make('span', ['listText'], {
     textContent: name
   });
-  const deleteButton = Dom.make('button', ['list__button'], {
-    textContent: '...'
+  const deleteButton = Dom.make('img', ['delButton'], {
+    src: './images/delButton.png'
   });
   const deleteSpan = Dom.make('button', ['deleteSpan'], {
     textContent: 'Удалить'
   });
-  const editButton = Dom.make('button', ['editButton'], {
-    textContent: 'edit'
-  })
-  const confirmEdit = Dom.make('button', ['confirmEdit'], {
-    textContent: '+'
-  })
+  const editButton = Dom.make('img', ['editButton'], {
+    src: './images/editPic.png'
+  });
   deleteButton.addEventListener('click', function(event) {
     if (n === 0) {
       div.appendChild(deleteSpan);
@@ -44,57 +41,45 @@ const Task = function(name, priority,app) {
       n--;
     }
   });
-  editButton.addEventListener('click', function(event) {
-    const takeNode = event.target.parentNode;
-    const editText = takeNode.querySelector('.listText');
-    if (k == 0) {
-      k++;
-      const editInput = Dom.make('input', ['editInput'], {
-        value: editText.textContent
-      })
-
-      div.appendChild(editInput);
-      div.appendChild(confirmEdit);
-
-      editText.style.display = 'none';
-
-    } else {
-      const deleteteEdit = takeNode.querySelector('.editInput');
-
-      editText.style.display = 'inline-block';
-
-      deleteteEdit.remove();
-      confirmEdit.remove();
-      k--;
-    }
-
-    confirmEdit.addEventListener('click', function() {
-
-      const editInput = takeNode.querySelector('.editInput');
-      const spanText = Dom.make('span', ['listText'], {
-        textContent: editInput.value
-      });
-
-      k--;
-      div.appendChild(spanText);
-      editText.remove();
-      editInput.remove();
-      confirmEdit.remove();
-
-    })
-  })
-
   deleteSpan.addEventListener('click', function() {
     const div = event.target.parentNode;
 
     app.tasksCountDec(event.target.parentNode);
     app.setToStorage(this.currentManager);
     div.remove();
-  })
+  });
+
+  editButton.addEventListener('click', function(event) {
+    let index = 0;
+    const tasks = document.querySelectorAll('.list__task');
+
+    for(let j = 0; j < tasks.length; j++) {
+      const taskText = tasks[j].querySelector('.listText').textContent;
+      if (taskText == spanText.textContent) {
+        index = j;
+      }
+    }
+
+    if (n == 0) {
+      const currentText = spanText.textContent;
+      spanText.contentEditable = "true";
+      spanText.focus();
+      n++
+    } else {
+      spanText.contentEditable = "false";
+      n--;
+
+      const editor = JSON.parse(localStorage.getItem(app.currentManager.name));
+      editor[index].text = spanText.textContent;
+      localStorage.setItem(app.currentManager.name,JSON.stringify(editor));
+
+    }
+  });
 
   div.appendChild(span);
   div.appendChild(spanText);
   div.appendChild(deleteButton);
+  //editButton.appendChild(editPic);
   div.appendChild(editButton);
 
   this.dom.div = div;
