@@ -360,38 +360,41 @@ class App {
 
       document.querySelector('.newListInput').addEventListener('keydown', function(e) {
         if (e.keyCode === 13) {
-          createNewList();
+          self.createNewList();
           newListInput.value = '';
         }
       });
 
       const addList = Dom.find(document,'#addList');
 
-      addList.addEventListener('click', createNewList);
+      addList.addEventListener('click', self.createNewList.bind(self));
 
-      function createNewList() {
-
-        const listName = newListInput.value;
-        if (listName === '') {
-          return
-        }
-
-        const newList = Dom.make('button', ['manager','list'], {
-          textContent: listName
-        });
-        newList.dataset.id = listName;
-
-        Dom.appendTo(self.lists, newList);
-        Dom.appendTo(self.lists, self.addListButton);
-
-        const manager = new TaskManager(listName);
-        self.managers.push(manager);
-        self.bindButtonEvent(newList);
-        newListInput.value = '';
-        self.SetStorageButtons(listName);
-      }
     })
   };
+
+  createNewList() {
+    const newListInput = Dom.find(document,'.newListInput');
+    const listName = newListInput.value;
+    if (listName === '') {
+      return
+    }
+
+    const newList = Dom.make('button', ['manager','list'], {
+      textContent: listName
+    });
+    newList.dataset.id = listName;
+    console.log(this.lists, newList)
+    console.log(this.lists, this.addListButton)
+
+    Dom.appendTo(this.lists, newList);
+    Dom.appendTo(this.lists, this.addListButton);
+
+    const manager = new TaskManager(listName);
+    this.managers.push(manager);
+    this.bindButtonEvent(newList);
+    newListInput.value = '';
+    this.SetStorageButtons(listName);
+  }
 
   drawButton() {
 
@@ -410,32 +413,32 @@ class App {
 
     document.querySelector('.input').addEventListener('keydown', function(e) {
       if (e.keyCode === 13) {
-        createNewtask();
+        self.createNewtask();
       }
     });
 
-    addtaskButton.addEventListener('click', createNewtask);
+    addtaskButton.addEventListener('click', this.createNewtask);
 
-    function createNewtask() {
-      const priority = Dom.find(document, '.priority').value;
+  };
 
-      self.tasksCountInc();
-      self.taskList.Counter.style.display = 'block';
+  createNewtask() {
+    const priority = Dom.find(document, '.priority').value;
 
-      self.inputValue = Dom.find(document, '.input');
+    this.tasksCountInc();
+    this.taskList.Counter.style.display = 'block';
 
-      if (self.inputValue.value != '') {
+    this.inputValue = Dom.find(document, '.input');
 
-        const name = self.inputValue.value;
-        const task = self.currentManager.addTask(name,priority,self);
+    if (this.inputValue.value != '') {
 
-        self.AddToUl(task.getElement());
-        self.inputValue.value = '';
-        self.inputValue.focus();
-        Storage.setToStorage(self.currentManager);
-      }
+      const name = this.inputValue.value;
+      const task = this.currentManager.addTask(name,priority,self);
+
+      this.AddToUl(task.getElement());
+      this.inputValue.value = '';
+      this.inputValue.focus();
+      Storage.setToStorage(this.currentManager);
     }
-
   };
 
   tasksCountInc() {

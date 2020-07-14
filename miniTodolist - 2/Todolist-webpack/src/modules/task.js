@@ -31,6 +31,7 @@ class Task {
     const editButton = Dom.make('img', ['editButton'], {
       src: './images/editPic.png'
     });
+
     deleteButton.addEventListener('click', function(event) {
       if (n === 0) {
         div.appendChild(deleteSpan);
@@ -43,12 +44,13 @@ class Task {
         n--;
       }
     });
+
     deleteSpan.addEventListener('click', function() {
       const div = event.target.parentNode;
 
       app.tasksCountDec(event.target.parentNode);
-      Storage.setToStorage(this.currentManager);
       div.remove();
+      Storage.setToStorage(this.currentManager);
     });
 
     editButton.addEventListener('click', function(event) {
