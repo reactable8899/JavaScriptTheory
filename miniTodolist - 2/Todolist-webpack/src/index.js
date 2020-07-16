@@ -415,7 +415,7 @@ class App {
       }
     });
 
-    addtaskButton.addEventListener('click', this.createNewtask);
+    addtaskButton.addEventListener('click', this.createNewtask.bind(self));
 
   };
 

@@ -33,7 +33,7 @@ class Task {
       src: './images/editPic.png'
     });
     const status = Dom.make('img',['statusActive'], {
-      src: './images/active.png'
+      src: './images/done1.png'
     })
 
     deleteButton.addEventListener('click', function(event) {
@@ -67,7 +67,7 @@ class Task {
         spanText.style.cssText = 'text-decoration: line-through; color: #7E8591';
         k++;
       } else {
-        status.src = './images/active.png'
+        status.src = './images/done1.png'
         status.classList.add('statusActive');
         status.classList.remove('statusDone');
         editButton.style.display = 'block';

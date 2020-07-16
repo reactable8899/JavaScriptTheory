@@ -20,12 +20,17 @@
   border: 1px solid #0EBB82;
 }.list__task {
     position: relative;
-    margin-top: 20px;
-    padding-bottom: 10px;
+    width: 850px;
+    margin: 0 auto;
+    margin-top: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     list-style-type: none;
     padding-left: 30px;
     font-size: 22px;
-    border-bottom: 2px solid #eee;
+    /* border-bottom: 2px solid #eee; */
+    -webkit-box-shadow: 1px 8px 20px -20px #000000;
+    box-shadow: 1px 8px 20px -20px #000000;
   }.list__button {
     float: right;
     outline: none;
@@ -82,8 +87,8 @@
   cursor: pointer;
   border-bottom: 1px solid silver;
   color: #7F8186;
-  -webkit-box-shadow: 5px 0px 8px -3px rgba(0,0,0,0.25);
-          box-shadow: 5px 0px 8px -3px rgba(0,0,0,0.25);
+  -webkit-box-shadow: 2px 0px 6px -3px rgba(0,0,0,0.25);
+          box-shadow: 2px 0px 6px -3px rgba(0,0,0,0.25);
 }.list:hover {
   background-color: #279FDB;
   color: white;
@@ -153,7 +158,7 @@
   overflow-y: auto;
   background-color: white;
   width: 900px;
-  height: 350px;
+  height: 500px;
   margin: 0 auto;
   -webkit-box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
           box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
