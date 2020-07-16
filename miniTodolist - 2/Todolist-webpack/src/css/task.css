@@ -43,6 +43,9 @@
   border: none;
   border-bottom: 1px solid #eee;
 }
+.listText {
+  color: black;
+}
 .editButton {
   float: right;
   cursor: pointer;
@@ -52,8 +55,24 @@
 }
 .delButton {
   float: right;
-  cursor: pointer;
   margin-right: 50px;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+.statusActive {
+  margin-left: 5px;
+  float: left;
+  cursor: pointer;
+  margin-right: 20px;
+  width: 30px;
+  height: 30px;
+}
+.statusDone {
+  margin-left: 5px;
+  float: left;
+  cursor: pointer;
+  margin-right: 20px;
   width: 30px;
   height: 30px;
 }

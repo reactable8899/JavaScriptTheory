@@ -1,9 +1,10 @@
 import Dom from "./dom";
 import Storage from "./localStorage";
+import App from "../index.js";
 
 class Task {
-  constructor(name, priority,app) {
-    this.name = name;
+  constructor(text, priority,app) {
+    this.name = text;
     this.priority = priority;
     this.app = app;
 
@@ -20,7 +21,7 @@ class Task {
     span.classList.add = Task.prototype.getPriority(priority,span);
 
     const spanText = Dom.make('span', ['listText'], {
-      textContent: name
+      textContent: text
     });
     const deleteButton = Dom.make('img', ['delButton'], {
       src: './images/delButton.png'
@@ -31,6 +32,9 @@ class Task {
     const editButton = Dom.make('img', ['editButton'], {
       src: './images/editPic.png'
     });
+    const status = Dom.make('img',['statusActive'], {
+      src: './images/active.png'
+    })
 
     deleteButton.addEventListener('click', function(event) {
       if (n === 0) {
@@ -47,10 +51,30 @@ class Task {
 
     deleteSpan.addEventListener('click', function() {
       const div = event.target.parentNode;
+      div.remove();
 
       app.tasksCountDec(event.target.parentNode);
-      div.remove();
-      Storage.setToStorage(this.currentManager);
+
+      Storage.setToStorage(self.app.currentManager);
+    });
+
+    status.addEventListener('click', function() {
+      if (k === 0) {
+        status.src = './images/done.png'
+        status.classList.add('statusDone');
+        status.classList.remove('statusActive');
+        editButton.style.display = 'none';
+        spanText.style.cssText = 'text-decoration: line-through; color: #7E8591';
+        k++;
+      } else {
+        status.src = './images/active.png'
+        status.classList.add('statusActive');
+        status.classList.remove('statusDone');
+        editButton.style.display = 'block';
+        spanText.style.color = 'black';
+        spanText.style.cssText = 'text-decoration: none';
+        k--;
+      }
     });
 
     editButton.addEventListener('click', function(event) {
@@ -79,11 +103,12 @@ class Task {
 
       }
     });
-
     div.appendChild(span);
     div.appendChild(spanText);
+    div.appendChild(status);
     div.appendChild(deleteButton);
     div.appendChild(editButton);
+
 
     this.dom.div = div;
   };

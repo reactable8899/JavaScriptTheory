@@ -383,8 +383,6 @@ class App {
       textContent: listName
     });
     newList.dataset.id = listName;
-    console.log(this.lists, newList)
-    console.log(this.lists, this.addListButton)
 
     Dom.appendTo(this.lists, newList);
     Dom.appendTo(this.lists, this.addListButton);
@@ -432,7 +430,7 @@ class App {
     if (this.inputValue.value != '') {
 
       const name = this.inputValue.value;
-      const task = this.currentManager.addTask(name,priority,self);
+      const task = this.currentManager.addTask(name,priority,this);
 
       this.AddToUl(task.getElement());
       this.inputValue.value = '';
