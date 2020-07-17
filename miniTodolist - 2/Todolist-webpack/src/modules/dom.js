@@ -1,31 +1,62 @@
-const Dom = function() {
-};
+// const Dom = function() {
+// };
+//
+// Dom.prototype.make = function(element, classList = [], properties = {}) {
+//   const el = document.createElement(element);
+//
+//   for(let i = 0; i < classList.length; i++) {
+//     const className = classList[i];
+//     el.classList.add(className);
+//   }
+//
+//   for(let prop in properties) {
+//     el[prop] = properties[prop];
+//   }
+//
+//   return el;
+// };
+//
+// Dom.prototype.find = function (element, selector) {
+//   return element.querySelector(selector);
+// };
+//
+// Dom.prototype.findAll = function(element, selector) {
+//   return element.querySelectorAll(selector);
+// };
+//
+// Dom.prototype.appendTo = function(element, child) {
+//   element.append(child);
+// };
+//
+// export default new Dom();
 
-Dom.prototype.make = function(element, classList = [], properties = {}) {
-  const el = document.createElement(element);
+class Dom {
 
-  for(let i = 0; i < classList.length; i++) {
-    const className = classList[i];
-    el.classList.add(className);
-  }
+  make(element, classList = [], properties = {}) {
+    const el = document.createElement(element);
 
-  for(let prop in properties) {
-    el[prop] = properties[prop];
-  }
+    for(let i = 0; i < classList.length; i++) {
+      const className = classList[i];
+      el.classList.add(className);
+    }
 
-  return el;
-};
+    for(let prop in properties) {
+      el[prop] = properties[prop];
+    }
 
-Dom.prototype.find = function (element, selector) {
-  return element.querySelector(selector);
-};
+    return el;
+  };
+  find(element, selector) {
+    return element.querySelector(selector);
+  };
 
-Dom.prototype.findAll = function(element, selector) {
-  return element.querySelectorAll(selector);
-};
+  findAll(element, selector) {
+    return element.querySelectorAll(selector);
+  };
 
-Dom.prototype.appendTo = function(element, child) {
-  element.append(child);
+  appendTo(element, child) {
+    element.append(child);
+  };
 };
 
 export default new Dom();

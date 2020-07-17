@@ -15,6 +15,9 @@ module.exports = {
     libraryExport: 'default',
     path: path.join(__dirname, 'dist')
   },
+  watch: true,
+  //devtool: true,
+
   module: {
     rules: [
       {
