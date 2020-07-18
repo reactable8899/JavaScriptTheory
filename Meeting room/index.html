@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Meeting Room</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./dist/styles.css">
+  </head>
+  <body>
+  <div class="container2">
+    <div class="menu">
+    </div>
+    <div class="main__block">
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="modal" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Добавить Лист</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body">
+            <input type="text" name="" value="" class="newRoomInput" placeholder="Room name">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="newRoomButton">Добавить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container">
+    <div class="modal" id="reserveButton">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Добавить Лист</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body">
+            <input type="date" name="" value="" class="ReserveDate" placeholder="Room name">
+            <input type="text" name="" value="" class="description" placeholder="description..">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id="reserveModalButton">Добавить</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./dist/index.js"></script>
+  <script>
+  const app = new TodoList();
+  </script>
+  </body>
+</html>
